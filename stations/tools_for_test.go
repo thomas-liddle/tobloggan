@@ -1,5 +1,9 @@
 package stations
 
+import "errors"
+
+var boink = errors.New("boink")
+
 type StationFixture struct {
 	outputs []any
 }
