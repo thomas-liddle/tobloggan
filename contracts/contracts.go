@@ -1,4 +1,4 @@
 package contracts
 
-type BlogSourceDirectory string
-type BlogSourceFilePath string
+type SourceDirectory string
+type SourceFilePath string

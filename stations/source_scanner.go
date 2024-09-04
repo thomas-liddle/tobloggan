@@ -17,7 +17,7 @@ func NewSourceScanner(fs fs.FS) *SourceScanner {
 
 func (this *SourceScanner) Do(input any, output func(any)) {
 	switch input := input.(type) {
-	case contracts.BlogSourceDirectory:
+	case contracts.SourceDirectory:
 		err := fs.WalkDir(this.fs, string(input), func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return err
@@ -28,7 +28,7 @@ func (this *SourceScanner) Do(input any, output func(any)) {
 			if filepath.Ext(path) != ".md" {
 				return nil
 			}
-			output(contracts.BlogSourceFilePath(path))
+			output(contracts.SourceFilePath(path))
 			return nil
 		})
 		if err != nil {
