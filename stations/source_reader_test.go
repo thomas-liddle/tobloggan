@@ -35,7 +35,7 @@ func (this *SourceReaderFixture) TestArticleMetaAndContentReadFromDiskAndEmitted
 	this.fs["src/article-1.md"] = &fstest.MapFile{Data: []byte(article1Content)}
 	this.reader.Do(contracts.SourceFilePath("src/article-1.md"), this.Output)
 	this.So(this.outputs, should.Equal, []any{
-		contracts.Source{
+		contracts.Article{
 			Slug:  "/article/1",
 			Title: "Article 1",
 			Date:  time.Date(2024, time.September, 4, 0, 0, 0, 0, time.UTC),

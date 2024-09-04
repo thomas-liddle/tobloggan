@@ -7,7 +7,7 @@ import (
 
 type SourceDirectory string
 type SourceFilePath string
-type Source struct {
+type Article struct {
 	Slug  string    `json:"slug"`
 	Title string    `json:"title"`
 	Date  time.Time `json:"date"`

@@ -31,7 +31,7 @@ func (this *SourceReader) Do(input any, output func(v any)) {
 			output(fmt.Errorf("%w (missing divider): %s", contracts.ErrMalformedSource, input))
 			return
 		}
-		var source contracts.Source
+		var source contracts.Article
 		err = json.Unmarshal(front, &source)
 		if err != nil {
 			output(fmt.Errorf("%w (%w): %s", contracts.ErrMalformedSource, err, input))
