@@ -15,10 +15,6 @@ type Article struct {
 	Body  string    `json:"-"`
 }
 
-type Markdown interface {
-	Convert(content string) (string, error)
-}
-
 var ErrMalformedSource = errors.New("malformed source")
 
 const ScanCompleted = "** scan completed **"
