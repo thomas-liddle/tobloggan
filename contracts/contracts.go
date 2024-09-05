@@ -19,3 +19,5 @@ type Markdown interface {
 }
 
 var ErrMalformedSource = errors.New("malformed source")
+
+const ScanCompleted = "** scan completed **"

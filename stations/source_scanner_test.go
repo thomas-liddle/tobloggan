@@ -40,11 +40,12 @@ func (this *SourceScannerFixture) TestGivenASourceDirectoryThatDoesNotExist_Emit
 		this.So(this.outputs[0], should.Wrap, os.ErrNotExist)
 	}
 }
-func (this *SourceScannerFixture) TestGivenASourceDirectory_EmitAllContainingBlogSourceFilePaths() {
+func (this *SourceScannerFixture) TestGivenASourceDirectoryWithBlogSourceFiles_EmitAllContainingBlogSourceFilePaths() {
 	this.scanner.Do(contracts.SourceDirectory("src"), this.Output)
 	this.So(this.outputs, should.Equal, []any{
 		contracts.SourceFilePath("src/article-1.md"),
 		contracts.SourceFilePath("src/article-3.md"),
 		contracts.SourceFilePath("src/inner/article-4.md"),
+		contracts.ScanCompleted,
 	})
 }

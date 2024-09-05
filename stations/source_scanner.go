@@ -33,6 +33,8 @@ func (this *SourceScanner) Do(input any, output func(any)) {
 		})
 		if err != nil {
 			output(err)
+		} else {
+			output(contracts.ScanCompleted)
 		}
 	default:
 		output(input)
