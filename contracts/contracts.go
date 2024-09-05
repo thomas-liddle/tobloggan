@@ -7,6 +7,7 @@ import (
 
 type SourceDirectory string
 type SourceFilePath string
+type SourceFile []byte
 type Article struct {
 	Slug  string    `json:"slug"`
 	Title string    `json:"title"`
