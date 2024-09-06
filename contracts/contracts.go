@@ -16,3 +16,7 @@ type Article struct {
 }
 
 var ErrMalformedSource = errors.New("malformed source")
+
+type Logger interface {
+	Printf(format string, args ...interface{})
+}
