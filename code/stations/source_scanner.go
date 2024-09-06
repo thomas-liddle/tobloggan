@@ -4,7 +4,7 @@ import (
 	"io/fs"
 	"path/filepath"
 
-	"github.com/mdwhatcott/tobloggan/contracts"
+	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
 type SourceScanner struct {

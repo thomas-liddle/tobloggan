@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 
 	"github.com/mdwhatcott/pipelines"
-	"github.com/mdwhatcott/tobloggan/contracts"
-	"github.com/mdwhatcott/tobloggan/stations"
+	"github.com/mdwhatcott/tobloggan/code/contracts"
+	stations2 "github.com/mdwhatcott/tobloggan/code/stations"
 )
 
 func main() {
@@ -31,12 +31,12 @@ func GenerateBlog(sourceDirectory string, stderr io.Writer) bool {
 		input    = make(chan any, 1)
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(logger),
-			pipelines.Options.StationSingleton(stations.NewSourceScanner(fs)),
-			pipelines.Options.StationSingleton(stations.NewSourceReader(fs)),
-			pipelines.Options.StationSingleton(stations.NewArticleParser(stations.NewGoldmarkMarkdownConverter())),
+			pipelines.Options.StationSingleton(stations2.NewSourceScanner(fs)),
+			pipelines.Options.StationSingleton(stations2.NewSourceReader(fs)),
+			pipelines.Options.StationSingleton(stations2.NewArticleParser(stations2.NewGoldmarkMarkdownConverter())),
 			// TODO: render articles
 			// TODO: render home page
-			pipelines.Options.StationSingleton(stations.NewReporter(logger, failed)),
+			pipelines.Options.StationSingleton(stations2.NewReporter(logger, failed)),
 		)
 	)
 	input <- contracts.SourceDirectory(".")

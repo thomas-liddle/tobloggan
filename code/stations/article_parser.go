@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/mdwhatcott/tobloggan/contracts"
+	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
 type Markdown interface {

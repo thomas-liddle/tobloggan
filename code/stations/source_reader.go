@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/fs"
 
-	"github.com/mdwhatcott/tobloggan/contracts"
+	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
 type SourceReader struct {
