@@ -1,9 +1,6 @@
 package contracts
 
-import (
-	"errors"
-	"time"
-)
+import "time"
 
 type SourceDirectory string
 type SourceFilePath string
@@ -13,10 +10,4 @@ type Article struct {
 	Title string    `json:"title"`
 	Date  time.Time `json:"date"`
 	Body  string    `json:"-"`
-}
-
-var ErrMalformedSource = errors.New("malformed source")
-
-type Logger interface {
-	Printf(format string, args ...interface{})
 }

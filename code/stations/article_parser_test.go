@@ -46,20 +46,20 @@ func (this *ArticleParserFixture) TestArticleMetaAndContentReadFromDiskAndEmitte
 func (this *ArticleParserFixture) TestMissingDivider() {
 	this.parser.Do(contracts.SourceFile("{} Content without separator"), this.Output)
 	if this.So(this.outputs, should.HaveLength, 1) {
-		this.So(this.outputs[0], should.Wrap, contracts.ErrMalformedSource)
+		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}
 }
 func (this *ArticleParserFixture) TestMalformedMetadata() {
 	this.parser.Do(contracts.SourceFile("{bad-json}\n+++\nContent"), this.Output)
 	if this.So(this.outputs, should.HaveLength, 1) {
-		this.So(this.outputs[0], should.Wrap, contracts.ErrMalformedSource)
+		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}
 }
 func (this *ArticleParserFixture) TestInvalidMarkdown() {
 	this.markdownErr = boink
 	this.parser.Do(contracts.SourceFile(article1Content), this.Output)
 	if this.So(this.outputs, should.HaveLength, 1) {
-		this.So(this.outputs[0], should.Wrap, contracts.ErrMalformedSource)
+		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}
 }
 
