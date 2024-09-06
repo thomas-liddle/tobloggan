@@ -1,7 +1,6 @@
 package stations
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/smarty/assertions/should"
@@ -17,16 +16,15 @@ type StackTraceErrorFixture struct {
 }
 
 func (this *StackTraceErrorFixture) Test() {
-	gopherErr := errors.New("gophers")
-	err := StackTraceError(gopherErr)
-	if this.So(err, should.Wrap, gopherErr) {
-		this.So(err.Error(), should.Contain, "gophers")
-		this.So(err.Error(), should.Contain, "stack:")
+	err := SourcedError(boink)
+	if this.So(err, should.Wrap, boink) {
+		this.So(err.Error(), should.ContainSubstring, "boink")
 	}
+	this.Println("Example error output:", err)
 }
 
 func (this *StackTraceErrorFixture) TestNil() {
 	var err error
-	err = StackTraceError(err)
+	err = SourcedError(err)
 	this.So(err, should.BeNil)
 }

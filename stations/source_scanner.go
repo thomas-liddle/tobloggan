@@ -20,7 +20,7 @@ func (this *SourceScanner) Do(input any, output func(any)) {
 	case contracts.SourceDirectory:
 		err := fs.WalkDir(this.fs, string(input), func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
-				return StackTraceError(err)
+				return SourcedError(err)
 			}
 			if d.IsDir() {
 				return nil

@@ -25,18 +25,18 @@ func (this *ArticleParser) Do(input any, output func(any)) {
 	case contracts.SourceFile:
 		front, body, divided := bytes.Cut(input, []byte("\n+++\n"))
 		if !divided {
-			output(StackTraceError(fmt.Errorf("%w (missing divider): %s", contracts.ErrMalformedSource, input)))
+			output(SourcedError(fmt.Errorf("%w (missing divider): %s", contracts.ErrMalformedSource, input)))
 			return
 		}
 		var source contracts.Article
 		err := json.Unmarshal(front, &source)
 		if err != nil {
-			output(StackTraceError(fmt.Errorf("%w (%w): %s", contracts.ErrMalformedSource, err, input)))
+			output(SourcedError(fmt.Errorf("%w (%w): %s", contracts.ErrMalformedSource, err, input)))
 			return
 		}
 		source.Body, err = this.md.Convert(string(bytes.TrimSpace(body)))
 		if err != nil {
-			output(StackTraceError(fmt.Errorf("%w (%w): %s", contracts.ErrMalformedSource, err, input)))
+			output(SourcedError(fmt.Errorf("%w (%w): %s", contracts.ErrMalformedSource, err, input)))
 			return
 		}
 		output(source)
