@@ -20,7 +20,7 @@ func (this *SourceReader) Do(input any, output func(v any)) {
 	case contracts.SourceFilePath:
 		raw, err := fs.ReadFile(this.fs, string(input))
 		if err != nil {
-			output(fmt.Errorf("%w: %s", err, input))
+			output(StackTraceError(fmt.Errorf("%w: %s", err, input)))
 		} else {
 			output(contracts.SourceFile(raw))
 		}
