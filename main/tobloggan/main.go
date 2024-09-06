@@ -10,7 +10,7 @@ import (
 	"github.com/mdwhatcott/pipelines"
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 	"github.com/mdwhatcott/tobloggan/code/markdown"
-	stations2 "github.com/mdwhatcott/tobloggan/code/stations"
+	"github.com/mdwhatcott/tobloggan/code/stations"
 )
 
 func main() {
@@ -32,12 +32,12 @@ func GenerateBlog(sourceDirectory string, stderr io.Writer) bool {
 		input    = make(chan any, 1)
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(logger),
-			pipelines.Options.StationSingleton(stations2.NewSourceScanner(fs)),
-			pipelines.Options.StationSingleton(stations2.NewSourceReader(fs)),
-			pipelines.Options.StationSingleton(stations2.NewArticleParser(markdown.NewConverter())),
+			pipelines.Options.StationSingleton(stations.NewSourceScanner(fs)),
+			pipelines.Options.StationSingleton(stations.NewSourceReader(fs)),
+			pipelines.Options.StationSingleton(stations.NewArticleParser(markdown.NewConverter())),
 			// TODO: render articles
 			// TODO: render home page
-			pipelines.Options.StationSingleton(stations2.NewReporter(logger, failed)),
+			pipelines.Options.StationSingleton(NewReporter(logger, failed)),
 		)
 	)
 	input <- contracts.SourceDirectory(".")

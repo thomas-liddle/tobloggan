@@ -1,4 +1,4 @@
-package stations
+package main
 
 import (
 	"sync/atomic"
