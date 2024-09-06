@@ -16,5 +16,3 @@ type Article struct {
 }
 
 var ErrMalformedSource = errors.New("malformed source")
-
-const ScanCompleted = "** scan completed **"

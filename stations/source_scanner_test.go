@@ -46,6 +46,5 @@ func (this *SourceScannerFixture) TestGivenASourceDirectoryWithBlogSourceFiles_E
 		contracts.SourceFilePath("src/article-1.md"),
 		contracts.SourceFilePath("src/article-3.md"),
 		contracts.SourceFilePath("src/inner/article-4.md"),
-		contracts.ScanCompleted,
 	})
 }
