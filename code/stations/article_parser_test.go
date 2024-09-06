@@ -1,7 +1,6 @@
 package stations
 
 import (
-	"errors"
 	"testing"
 	"time"
 
@@ -57,7 +56,7 @@ func (this *ArticleParserFixture) TestMalformedMetadata() {
 	}
 }
 func (this *ArticleParserFixture) TestInvalidMarkdown() {
-	this.markdownErr = errors.New("boink")
+	this.markdownErr = boink
 	this.parser.Do(contracts.SourceFile(article1Content), this.Output)
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, errMalformedSource)

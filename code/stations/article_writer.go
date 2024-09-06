@@ -26,17 +26,17 @@ func (this *ArticleWriter) Do(input any, output func(any)) {
 	switch input := input.(type) {
 	case contracts.Article:
 		path := filepath.Join(this.targetDirectory, input.Slug, "index.html")
+		err := this.fs.MkdirAll(filepath.Dir(path), 0755)
+		if err != nil {
+			output(contracts.Error(err))
+			return
+		}
 		content := strings.NewReplacer(
 			"{{Title}}", input.Title,
 			"{{Slug}}", input.Slug,
 			"{{Date}}", input.Date.Format("January 2, 2006"),
 			"{{Body}}", input.Body,
 		).Replace(bodyTemplate)
-		err := this.fs.MkdirAll(filepath.Dir(path), 0755)
-		if err != nil {
-			output(contracts.Error(err))
-			return
-		}
 		err = this.fs.WriteFile(path, []byte(content), 0644)
 		if err != nil {
 			output(contracts.Error(err))
