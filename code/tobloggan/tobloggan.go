@@ -1,37 +1,38 @@
 package tobloggan
 
 import (
-	"os"
+	"io/fs"
 	"sync/atomic"
 
 	"github.com/mdwhatcott/pipelines"
 	"github.com/mdwhatcott/tobloggan/code/contracts"
-	"github.com/mdwhatcott/tobloggan/code/markdown"
 	"github.com/mdwhatcott/tobloggan/code/stations"
 )
 
 type Config struct {
-	SourceDirectory string
-	Logger          contracts.Logger
+	Logger            contracts.Logger
+	MarkdownConverter stations.MarkdownConverter
+	FileSystemReader  fs.FS
+	FileSystemWriter  stations.FileSystemWriter
+	TargetDirectory   string
 }
 
 func GenerateBlog(config Config) bool {
 	var (
-		fs       = os.DirFS(config.SourceDirectory)
-		failed   = new(atomic.Bool)
+		failure  = new(atomic.Bool)
 		input    = make(chan any, 1)
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(config.Logger),
-			pipelines.Options.StationSingleton(stations.NewSourceScanner(fs)),
-			pipelines.Options.StationSingleton(stations.NewSourceReader(fs)),
-			pipelines.Options.StationSingleton(stations.NewArticleParser(markdown.NewConverter())),
-			// TODO: render articles
+			pipelines.Options.StationSingleton(stations.NewSourceScanner(config.FileSystemReader)),
+			pipelines.Options.StationSingleton(stations.NewSourceReader(config.FileSystemReader)),
+			pipelines.Options.StationSingleton(stations.NewArticleParser(config.MarkdownConverter)),
+			pipelines.Options.StationSingleton(stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter)),
 			// TODO: render home page
-			pipelines.Options.StationSingleton(NewReporter(config.Logger, failed)),
+			pipelines.Options.StationSingleton(NewReporter(config.Logger, failure)),
 		)
 	)
 	input <- contracts.SourceDirectory(".")
 	close(input)
 	pipeline.Listen()
-	return !failed.Load()
+	return !failure.Load()
 }

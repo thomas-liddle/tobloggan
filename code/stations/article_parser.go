@@ -8,15 +8,15 @@ import (
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
-type Markdown interface {
+type MarkdownConverter interface {
 	Convert(content string) (string, error)
 }
 
 type ArticleParser struct {
-	md Markdown
+	md MarkdownConverter
 }
 
-func NewArticleParser(md Markdown) *ArticleParser {
+func NewArticleParser(md MarkdownConverter) *ArticleParser {
 	return &ArticleParser{md: md}
 }
 
