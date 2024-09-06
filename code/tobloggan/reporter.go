@@ -1,4 +1,4 @@
-package main
+package tobloggan
 
 import (
 	"sync/atomic"
