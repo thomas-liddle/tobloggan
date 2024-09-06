@@ -1,5 +1,5 @@
-github.com/mdwhatcott/pipelines v0.3.0 h1:OLyBPXxJjMwr/lYdj4bc0wLTSuOZgRUsUHIxaHcKFhM=
-github.com/mdwhatcott/pipelines v0.3.0/go.mod h1:ySjlLxg0hbeba26yqngE3rfjwhxe3vpWA4LjJSsDp2o=
+github.com/mdwhatcott/pipelines v0.5.0 h1:Zr6orWy30fWcklh0kBF52p5BhWecigK4fI/xVbZzak0=
+github.com/mdwhatcott/pipelines v0.5.0/go.mod h1:ySjlLxg0hbeba26yqngE3rfjwhxe3vpWA4LjJSsDp2o=
 github.com/smarty/assertions v1.16.0 h1:EvHNkdRA4QHMrn75NZSoUQ/mAUXAYWfatfB01yTCzfY=
 github.com/smarty/assertions v1.16.0/go.mod h1:duaaFdCS0K9dnoM50iyek/eYINOZ64gbh1Xlf6LG7AI=
 github.com/smarty/gunit v1.5.0 h1:OmG6a/rgi7qCjlQis6VjXbvx/WqZ8I6xSlbfN4YB5MY=

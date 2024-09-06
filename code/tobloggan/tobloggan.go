@@ -27,7 +27,7 @@ func GenerateBlog(config Config) bool {
 			pipelines.Options.StationSingleton(stations.NewSourceReader(config.FileSystemReader)),
 			pipelines.Options.StationSingleton(stations.NewArticleParser(config.MarkdownConverter)),
 			pipelines.Options.StationSingleton(stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter)),
-			// TODO: render home page
+			pipelines.Options.StationSingleton(stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter)),
 			pipelines.Options.StationSingleton(NewReporter(config.Logger, failure)),
 		)
 	)
