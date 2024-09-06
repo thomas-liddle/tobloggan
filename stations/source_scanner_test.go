@@ -35,6 +35,7 @@ func (this *SourceScannerFixture) TestUnhandledTypeEmitted() {
 	this.So(this.outputs, should.Equal, []any{"wrong-type"})
 }
 func (this *SourceScannerFixture) TestGivenASourceDirectoryThatDoesNotExist_EmitError() {
+	clear(this.fs)
 	this.scanner.Do(contracts.SourceDirectory("NOT-THERE"), this.Output)
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, os.ErrNotExist)
