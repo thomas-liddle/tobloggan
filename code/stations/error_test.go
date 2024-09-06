@@ -7,15 +7,15 @@ import (
 	"github.com/smarty/gunit"
 )
 
-func TestStackTraceErrorFixture(t *testing.T) {
-	gunit.Run(new(StackTraceErrorFixture), t)
+func TestSourcedErrorFixture(t *testing.T) {
+	gunit.Run(new(SourcedErrorFixture), t)
 }
 
-type StackTraceErrorFixture struct {
+type SourcedErrorFixture struct {
 	*gunit.Fixture
 }
 
-func (this *StackTraceErrorFixture) Test() {
+func (this *SourcedErrorFixture) Test() {
 	err := SourcedError(boink)
 	if this.So(err, should.Wrap, boink) {
 		this.So(err.Error(), should.ContainSubstring, "boink")
@@ -23,7 +23,7 @@ func (this *StackTraceErrorFixture) Test() {
 	this.Println("Example error output:", err)
 }
 
-func (this *StackTraceErrorFixture) TestNil() {
+func (this *SourcedErrorFixture) TestNil() {
 	var err error
 	err = SourcedError(err)
 	this.So(err, should.BeNil)
