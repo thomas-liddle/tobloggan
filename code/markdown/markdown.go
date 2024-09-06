@@ -1,4 +1,4 @@
-package stations
+package markdown
 
 import (
 	"bytes"
@@ -8,13 +8,13 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 )
 
-type GoldmarkMarkdownConverter struct {
+type Converter struct {
 	buffer    *bytes.Buffer
 	converter goldmark.Markdown
 }
 
-func NewGoldmarkMarkdownConverter() *GoldmarkMarkdownConverter {
-	return &GoldmarkMarkdownConverter{
+func NewConverter() *Converter {
+	return &Converter{
 		buffer: new(bytes.Buffer),
 		converter: goldmark.New(
 			goldmark.WithRendererOptions(
@@ -29,7 +29,7 @@ func NewGoldmarkMarkdownConverter() *GoldmarkMarkdownConverter {
 	}
 }
 
-func (this *GoldmarkMarkdownConverter) Convert(content string) (string, error) {
+func (this *Converter) Convert(content string) (string, error) {
 	this.buffer.Reset()
 	err := this.converter.Convert([]byte(content), this.buffer)
 	return this.buffer.String(), err

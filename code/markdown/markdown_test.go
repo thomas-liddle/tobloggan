@@ -1,4 +1,4 @@
-package stations
+package markdown
 
 import (
 	"testing"
@@ -14,11 +14,11 @@ func TestGoldmarkMarkdownConverterFixture(t *testing.T) {
 type GoldmarkMarkdownConverterFixture struct {
 	*gunit.Fixture
 
-	converter *GoldmarkMarkdownConverter
+	converter *Converter
 }
 
 func (this *GoldmarkMarkdownConverterFixture) Setup() {
-	this.converter = NewGoldmarkMarkdownConverter()
+	this.converter = NewConverter()
 }
 
 func (this *GoldmarkMarkdownConverterFixture) Test() {

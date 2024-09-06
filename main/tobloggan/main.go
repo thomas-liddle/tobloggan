@@ -9,6 +9,7 @@ import (
 
 	"github.com/mdwhatcott/pipelines"
 	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"github.com/mdwhatcott/tobloggan/code/markdown"
 	stations2 "github.com/mdwhatcott/tobloggan/code/stations"
 )
 
@@ -33,7 +34,7 @@ func GenerateBlog(sourceDirectory string, stderr io.Writer) bool {
 			pipelines.Options.Logger(logger),
 			pipelines.Options.StationSingleton(stations2.NewSourceScanner(fs)),
 			pipelines.Options.StationSingleton(stations2.NewSourceReader(fs)),
-			pipelines.Options.StationSingleton(stations2.NewArticleParser(stations2.NewGoldmarkMarkdownConverter())),
+			pipelines.Options.StationSingleton(stations2.NewArticleParser(markdown.NewConverter())),
 			// TODO: render articles
 			// TODO: render home page
 			pipelines.Options.StationSingleton(stations2.NewReporter(logger, failed)),
