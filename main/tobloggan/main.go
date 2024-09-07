@@ -4,12 +4,14 @@ import (
 	"flag"
 	"log"
 	"os"
+	"time"
 
 	"github.com/mdwhatcott/tobloggan/code/markdown"
 	"github.com/mdwhatcott/tobloggan/code/tobloggan"
 )
 
 func main() {
+	started := time.Now()
 	var (
 		sourceDirectory string
 		targetDirectory string
@@ -20,7 +22,7 @@ func main() {
 	_ = flags.Parse(os.Args[1:])
 
 	config := tobloggan.Config{
-		Logger:            log.New(os.Stderr, "", log.Ltime),
+		Logger:            log.New(os.Stderr, ">>> ", 0),
 		MarkdownConverter: markdown.NewConverter(),
 		FileSystemReader:  os.DirFS(sourceDirectory),
 		FileSystemWriter:  FSWriter{},
@@ -30,4 +32,5 @@ func main() {
 	if !ok {
 		os.Exit(1)
 	}
+	config.Logger.Printf("tobloggan finished in %s", time.Since(started))
 }
