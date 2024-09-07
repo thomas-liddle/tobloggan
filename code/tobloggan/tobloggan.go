@@ -19,16 +19,24 @@ type Config struct {
 
 func GenerateBlog(config Config) bool {
 	var (
-		failure  = new(atomic.Bool)
-		input    = make(chan any, 1)
+		failure = new(atomic.Bool)
+		input   = make(chan any, 1)
+
+		scanner  = stations.NewSourceScanner(config.FileSystemReader)
+		reader   = stations.NewSourceReader(config.FileSystemReader)
+		parser   = stations.NewArticleParser(config.MarkdownConverter)
+		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter)
+		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter)
+		reporter = stations.NewReporter(config.Logger, failure)
+
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(config.Logger),
-			pipelines.Options.StationSingleton(stations.NewSourceScanner(config.FileSystemReader)),
-			pipelines.Options.StationSingleton(stations.NewSourceReader(config.FileSystemReader)),
-			pipelines.Options.StationSingleton(stations.NewArticleParser(config.MarkdownConverter)),
-			pipelines.Options.StationSingleton(stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter)),
-			pipelines.Options.StationSingleton(stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter)),
-			pipelines.Options.StationSingleton(NewReporter(config.Logger, failure)),
+			pipelines.Options.StationSingleton(scanner),
+			pipelines.Options.StationSingleton(reader), pipelines.Options.FanOut(5),
+			pipelines.Options.StationSingleton(parser),
+			pipelines.Options.StationSingleton(articles), pipelines.Options.FanOut(5),
+			pipelines.Options.StationSingleton(listing),
+			pipelines.Options.StationSingleton(reporter),
 		)
 	)
 	input <- contracts.SourceDirectory(".")
