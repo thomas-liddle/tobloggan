@@ -11,11 +11,11 @@ import (
 
 type ListingWriter struct {
 	targetDirectory string
-	fs              contracts.FSWriter
+	fs              contracts.WriteFile
 	articles        []contracts.Article
 }
 
-func NewListingWriter(targetDirectory string, fs contracts.FSWriter) *ListingWriter {
+func NewListingWriter(targetDirectory string, fs contracts.WriteFile) *ListingWriter {
 	return &ListingWriter{targetDirectory: targetDirectory, fs: fs}
 }
 
@@ -28,12 +28,14 @@ func (this *ListingWriter) Do(input any, output func(any)) {
 	}
 }
 func (this *ListingWriter) Finalize(output func(any)) {
-	sort.Slice(this.articles, func(i, j int) bool {
+	sort.SliceStable(this.articles, func(i, j int) bool {
 		return this.articles[i].Date.Before(this.articles[j].Date)
 	})
 	var builder strings.Builder
 	for _, article := range this.articles {
-		_, _ = fmt.Fprintf(&builder, "\t\t\t"+`<li><a href="%s">%s</a></li>`+"\n", article.Slug, article.Title)
+		builder.WriteString("\t\t\t")
+		_, _ = fmt.Fprintf(&builder, `<li><a href="%s">%s</a></li>`, article.Slug, article.Title)
+		builder.WriteString("\n")
 	}
 	replacer := strings.NewReplacer(
 		"{{CSS}}", css,
