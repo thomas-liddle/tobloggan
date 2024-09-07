@@ -1,4 +1,4 @@
-package tobloggan
+package integration
 
 import (
 	"io/fs"

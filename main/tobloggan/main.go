@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/mdwhatcott/tobloggan/code/integration"
 	"github.com/mdwhatcott/tobloggan/code/markdown"
-	"github.com/mdwhatcott/tobloggan/code/tobloggan"
 )
 
 func main() {
@@ -16,21 +16,21 @@ func main() {
 		sourceDirectory string
 		targetDirectory string
 	)
-	flags := flag.NewFlagSet("tobloggan", flag.ExitOnError)
+	flags := flag.NewFlagSet("integration", flag.ExitOnError)
 	flags.StringVar(&sourceDirectory, "source", "", "The directory containing blog source files (*.md).")
 	flags.StringVar(&targetDirectory, "target", "", "The directory to output rendered blog files (*.html).")
 	_ = flags.Parse(os.Args[1:])
 
-	config := tobloggan.Config{
+	config := integration.Config{
 		Logger:            log.New(os.Stderr, ">>> ", 0),
 		MarkdownConverter: markdown.NewConverter(),
 		FileSystemReader:  os.DirFS(sourceDirectory),
 		FileSystemWriter:  FSWriter{},
 		TargetDirectory:   targetDirectory,
 	}
-	ok := tobloggan.GenerateBlog(config)
+	ok := integration.GenerateBlog(config)
 	if !ok {
 		os.Exit(1)
 	}
-	config.Logger.Printf("tobloggan finished in %s", time.Since(started))
+	config.Logger.Printf("integration finished in %s", time.Since(started))
 }
