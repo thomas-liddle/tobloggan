@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"github.com/mdwhatcott/tobloggan/code/html"
+
 	"github.com/smarty/assertions/should"
 	"github.com/smarty/gunit"
 )
@@ -34,7 +36,7 @@ func (this *ArticleWriterFixture) WriteFile(filename string, data []byte, perm o
 }
 func (this *ArticleWriterFixture) Setup() {
 	this.fs = fstest.MapFS{}
-	this.writer = NewArticleWriter("target/directory", this)
+	this.writer = NewArticleWriter("target/directory", this, html.ArticleTemplate)
 }
 func (this *ArticleWriterFixture) TestUnhandledTypeEmitted() {
 	this.writer.Do("wrong-type", this.Output)

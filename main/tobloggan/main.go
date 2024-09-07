@@ -6,6 +6,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/mdwhatcott/tobloggan/code/html"
 	"github.com/mdwhatcott/tobloggan/code/integration"
 	"github.com/mdwhatcott/tobloggan/code/markdown"
 )
@@ -27,6 +28,8 @@ func main() {
 		FileSystemReader:  os.DirFS(sourceDirectory),
 		FileSystemWriter:  FSWriter{},
 		TargetDirectory:   targetDirectory,
+		ArticleTemplate:   html.ArticleTemplate,
+		ListingTemplate:   html.ListingTemplate,
 	}
 	ok := integration.GenerateBlog(config)
 	if !ok {

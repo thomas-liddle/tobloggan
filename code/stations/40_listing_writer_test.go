@@ -10,6 +10,7 @@ import (
 	"github.com/smarty/gunit"
 
 	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"github.com/mdwhatcott/tobloggan/code/html"
 )
 
 func TestListingWriterFixture(t *testing.T) {
@@ -31,7 +32,7 @@ func (this *ListingWriterFixture) WriteFile(filename string, data []byte, perm o
 
 func (this *ListingWriterFixture) Setup() {
 	this.fs = make(fstest.MapFS)
-	this.writer = NewListingWriter("target/directory", this)
+	this.writer = NewListingWriter("target/directory", this, html.ListingTemplate)
 }
 
 func (this *ListingWriterFixture) TestUnhandledTypeEmitted() {

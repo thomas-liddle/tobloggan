@@ -15,6 +15,8 @@ type Config struct {
 	FileSystemReader  fs.FS
 	FileSystemWriter  stations.FileSystemWriter
 	TargetDirectory   string
+	ArticleTemplate   string
+	ListingTemplate   string
 }
 
 func GenerateBlog(config Config) bool {
@@ -25,8 +27,8 @@ func GenerateBlog(config Config) bool {
 		scanner  = stations.NewSourceScanner(config.FileSystemReader)
 		reader   = stations.NewSourceReader(config.FileSystemReader)
 		parser   = stations.NewArticleParser(config.MarkdownConverter)
-		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter)
-		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter)
+		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter, config.ArticleTemplate)
+		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter, config.ListingTemplate)
 		reporter = stations.NewReporter(config.Logger, failure)
 
 		pipeline = pipelines.New(input,
