@@ -1,4 +1,4 @@
 .idea/
 *.csv
 *.json
-output/
+generated/

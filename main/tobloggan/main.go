@@ -18,8 +18,8 @@ func main() {
 		targetDirectory string
 	)
 	flags := flag.NewFlagSet("integration", flag.ExitOnError)
-	flags.StringVar(&sourceDirectory, "source", "", "The directory containing blog source files (*.md).")
-	flags.StringVar(&targetDirectory, "target", "", "The directory to output rendered blog files (*.html).")
+	flags.StringVar(&sourceDirectory, "source", "content", "The directory containing blog source files (*.md).")
+	flags.StringVar(&targetDirectory, "target", "generated", "The directory to output rendered blog files (*.html).")
 	_ = flags.Parse(os.Args[1:])
 
 	config := integration.Config{
@@ -35,5 +35,5 @@ func main() {
 	if !ok {
 		os.Exit(1)
 	}
-	config.Logger.Printf("integration finished in %s", time.Since(started))
+	config.Logger.Printf("finished in %s", time.Since(started))
 }

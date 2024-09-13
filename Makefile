@@ -6,9 +6,9 @@ test:
 	go test -cover -timeout=1s -race -count=10 ./...
 
 clean:
-	rm -rf ./output
+	rm -rf ./generated
 
 generate: clean
 	go run github.com/mdwhatcott/tobloggan/main/tobloggan \
 	-source /Users/mike/src/github.com/mdwhatcott/tobloggan/content \
-	-target /Users/mike/src/github.com/mdwhatcott/tobloggan/output
+	-target /Users/mike/src/github.com/mdwhatcott/tobloggan/generated
