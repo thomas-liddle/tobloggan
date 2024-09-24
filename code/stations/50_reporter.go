@@ -1,6 +1,7 @@
 package stations
 
 import (
+	"reflect"
 	"sync/atomic"
 
 	"github.com/mdwhatcott/tobloggan/code/contracts"
@@ -16,9 +17,13 @@ func NewReporter(logger contracts.Logger, failed *atomic.Bool) *Reporter {
 }
 
 func (this *Reporter) Do(input any, _ func(any)) {
-	switch input.(type) {
+	switch input := input.(type) {
 	case error:
 		this.failed.Store(true)
+		this.logger.Printf("err: %v", input)
+	case contracts.Article:
+		this.logger.Printf("article: %s", input.Title)
+	default:
+		this.logger.Printf("unexpected type: %s", reflect.TypeOf(input))
 	}
-	this.logger.Printf("%v", input)
 }
