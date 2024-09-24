@@ -64,13 +64,20 @@ func (this *ListingWriterFixture) TestArticlesWrittenToListing() {
 
 func (this *ListingWriterFixture) TestWriteFileError() {
 	this.writeFileErr = boink
-	this.writer.Do(contracts.Article{Slug: "s1", Title: "t1", Date: date("2024-09-01"), Body: "b1"}, this.Output)
-	this.writer.Do(contracts.Article{Slug: "s2", Title: "t2", Date: date("2024-09-02"), Body: "b2"}, this.Output)
-	this.writer.Do(contracts.Article{Slug: "s3", Title: "t3", Date: date("2024-09-03"), Body: "b3"}, this.Output)
+
+	a := contracts.Article{Slug: "s1", Title: "t1", Date: date("2024-09-01"), Body: "b1"}
+	b := contracts.Article{Slug: "s2", Title: "t2", Date: date("2024-09-02"), Body: "b2"}
+	c := contracts.Article{Slug: "s3", Title: "t3", Date: date("2024-09-03"), Body: "b3"}
+	this.writer.Do(a, this.Output)
+	this.writer.Do(b, this.Output)
+	this.writer.Do(c, this.Output)
 
 	this.writer.Finalize(this.Output)
 
-	if this.So(this.outputs, should.HaveLength, 1) {
-		this.So(this.outputs[0], should.Wrap, boink)
+	if this.So(this.outputs, should.HaveLength, 4) {
+		this.So(this.outputs[0], should.Equal, a)
+		this.So(this.outputs[1], should.Equal, b)
+		this.So(this.outputs[2], should.Equal, c)
+		this.So(this.outputs[3], should.Wrap, boink)
 	}
 }
