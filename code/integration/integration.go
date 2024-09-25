@@ -2,7 +2,6 @@ package integration
 
 import (
 	"io/fs"
-	"log"
 	"sync/atomic"
 	"time"
 
@@ -24,7 +23,7 @@ type Config struct {
 
 func GenerateBlog(config Config) bool {
 	started := time.Now()
-	defer func() { log.Printf("finished in %s", time.Since(started)) }()
+	defer func() { config.Logger.Printf("finished in %s", time.Since(started)) }()
 
 	var (
 		failure = new(atomic.Bool)
