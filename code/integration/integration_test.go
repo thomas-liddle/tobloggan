@@ -31,6 +31,7 @@ func Test(t *testing.T) {
 		TargetDirectory:   "output",
 		ArticleTemplate:   html.ArticleTemplate,
 		ListingTemplate:   html.ListingTemplate,
+		BaseURL:           "file://",
 	}
 	ok := GenerateBlog(config)
 	if !ok {

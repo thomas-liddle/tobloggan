@@ -17,6 +17,7 @@ type Config struct {
 	TargetDirectory   string
 	ArticleTemplate   string
 	ListingTemplate   string
+	BaseURL           string
 }
 
 func GenerateBlog(config Config) bool {
@@ -30,6 +31,8 @@ func GenerateBlog(config Config) bool {
 		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter, config.ArticleTemplate)
 		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter, config.ListingTemplate)
 		reporter = stations.NewReporter(config.Logger, failure)
+
+		// TODO: incorporate baseurl writer
 
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(config.Logger),
