@@ -29,6 +29,7 @@ func GenerateBlog(config Config) bool {
 		reader   = stations.NewSourceReader(config.FileSystemReader)
 		parser   = stations.NewArticleParser()
 		markdown = stations.NewMarkdownConverter(config.Markdown)
+		//renderer = stations.NewArticleRenderer(config.ArticleTemplate)
 		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter, config.ArticleTemplate)
 		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter, config.ListingTemplate)
 		reporter = stations.NewReporter(config.Logger, failure)
@@ -41,6 +42,7 @@ func GenerateBlog(config Config) bool {
 			pipelines.Options.StationSingleton(reader), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(parser),
 			pipelines.Options.StationSingleton(markdown),
+			//pipelines.Options.StationSingleton(renderer),
 			pipelines.Options.StationSingleton(articles), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(listing),
 			pipelines.Options.StationSingleton(reporter),
