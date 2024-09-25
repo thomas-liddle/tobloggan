@@ -1,6 +1,7 @@
 package stations
 
 import (
+	"io/fs"
 	"os"
 	"testing"
 	"testing/fstest"
@@ -21,10 +22,13 @@ type SourceScannerFixture struct {
 
 func (this *SourceScannerFixture) Setup() {
 	this.fs = make(fstest.MapFS)
+	this.fs["src"] = &fstest.MapFile{Mode: fs.ModeDir}
 	this.fs["src/article-1.md"] = &fstest.MapFile{Data: []byte("article 1 source")}
 	this.fs["src/article-2.txt"] = &fstest.MapFile{Data: []byte("article 2 source")}
 	this.fs["src/article-3.md"] = &fstest.MapFile{Data: []byte("article 3 source")}
+	this.fs["src/inner"] = &fstest.MapFile{Mode: fs.ModeDir}
 	this.fs["src/inner/article-4.md"] = &fstest.MapFile{Data: []byte("article 4 source")}
+	this.fs["src/dir.md"] = &fstest.MapFile{Mode: fs.ModeDir} // a directory that looks like a markdown file
 	this.station = NewSourceScanner(this.fs)
 }
 
