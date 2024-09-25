@@ -11,29 +11,42 @@ import (
 	"github.com/mdwhatcott/tobloggan/code/markdown"
 )
 
+type Config struct {
+	sourceDirectory string
+	targetDirectory string
+}
+
 func main() {
 	started := time.Now()
-	var (
-		sourceDirectory string
-		targetDirectory string
-	)
-	flags := flag.NewFlagSet("integration", flag.ExitOnError)
-	flags.StringVar(&sourceDirectory, "source", "content", "The directory containing blog source files (*.md).")
-	flags.StringVar(&targetDirectory, "target", "generated", "The directory to output rendered blog files (*.html).")
-	_ = flags.Parse(os.Args[1:])
-
-	config := integration.Config{
-		Logger:            log.New(os.Stderr, ">>> ", 0),
+	log.SetFlags(0)
+	log.SetPrefix(">>> ")
+	cli := parseCLI(os.Args[1:])
+	app := integration.Config{
+		Logger:            log.Default(),
 		MarkdownConverter: markdown.NewConverter(),
-		FileSystemReader:  os.DirFS(sourceDirectory),
+		FileSystemReader:  os.DirFS(cli.sourceDirectory),
 		FileSystemWriter:  FSWriter{},
-		TargetDirectory:   targetDirectory,
+		TargetDirectory:   cli.targetDirectory,
 		ArticleTemplate:   html.ArticleTemplate,
 		ListingTemplate:   html.ListingTemplate,
 	}
-	ok := integration.GenerateBlog(config)
+	log.Printf("source: %s", cli.sourceDirectory)
+	log.Printf("target: %s", cli.targetDirectory)
+
+	ok := integration.GenerateBlog(app)
 	if !ok {
 		os.Exit(1)
 	}
-	config.Logger.Printf("finished in %s", time.Since(started))
+	log.Printf("finished in %s", time.Since(started))
+}
+
+func parseCLI(args []string) (result Config) {
+	flags := flag.NewFlagSet("integration", flag.ExitOnError)
+	flags.StringVar(&result.sourceDirectory, "source", "content", "The directory containing blog source files (*.md).")
+	flags.StringVar(&result.targetDirectory, "target", "generated", "The directory to output rendered blog files (*.html).")
+	_ = flags.Parse(args)
+	if result.baseURL == "" {
+		result.baseURL = "file://" + result.targetDirectory
+	}
+	return result
 }
