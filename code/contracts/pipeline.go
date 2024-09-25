@@ -11,3 +11,7 @@ type Article struct {
 	Date  time.Time `json:"date"`
 	Body  string    `json:"-"`
 }
+type Page struct {
+	Path    string
+	Content string
+}
