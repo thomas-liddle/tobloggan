@@ -6,16 +6,12 @@ import (
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
-type FileSystemWriter interface {
-	contracts.MkdirAll
-	contracts.WriteFile
-}
 type PageWriter struct {
 	targetDirectory string
-	fs              FileSystemWriter
+	fs              contracts.FSWriter
 }
 
-func NewPageWriter(targetDirectory string, fs FileSystemWriter) *PageWriter {
+func NewPageWriter(targetDirectory string, fs contracts.FSWriter) *PageWriter {
 	return &PageWriter{
 		targetDirectory: targetDirectory,
 		fs:              fs,

@@ -15,7 +15,7 @@ type Config struct {
 	Logger           contracts.Logger
 	Markdown         stations.Markdown
 	FileSystemReader fs.FS
-	FileSystemWriter stations.FileSystemWriter
+	FileSystemWriter contracts.FSWriter
 	TargetDirectory  string
 	ArticleTemplate  string
 	ListingTemplate  string
