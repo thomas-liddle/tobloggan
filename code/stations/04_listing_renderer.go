@@ -13,7 +13,7 @@ type ListingRenderer struct {
 	template string
 }
 
-func NewListingRenderer(template string) *ListingRenderer {
+func NewListingRenderer(template string) contracts.Station {
 	return &ListingRenderer{template: template}
 }
 

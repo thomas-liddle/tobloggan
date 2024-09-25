@@ -11,7 +11,7 @@ type PageWriter struct {
 	fs              contracts.FSWriter
 }
 
-func NewPageWriter(targetDirectory string, fs contracts.FSWriter) *PageWriter {
+func NewPageWriter(targetDirectory string, fs contracts.FSWriter) contracts.Station {
 	return &PageWriter{
 		targetDirectory: targetDirectory,
 		fs:              fs,

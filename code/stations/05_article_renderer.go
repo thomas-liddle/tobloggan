@@ -10,7 +10,7 @@ type ArticleRenderer struct {
 	template string
 }
 
-func NewArticleRenderer(template string) *ArticleRenderer {
+func NewArticleRenderer(template string) contracts.Station {
 	return &ArticleRenderer{template: template}
 }
 func (this *ArticleRenderer) Do(input any, output func(any)) {

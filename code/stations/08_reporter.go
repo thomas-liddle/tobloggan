@@ -11,7 +11,7 @@ type Reporter struct {
 	failed *atomic.Bool
 }
 
-func NewReporter(logger contracts.Logger, failed *atomic.Bool) *Reporter {
+func NewReporter(logger contracts.Logger, failed *atomic.Bool) contracts.Station {
 	return &Reporter{logger: logger, failed: failed}
 }
 

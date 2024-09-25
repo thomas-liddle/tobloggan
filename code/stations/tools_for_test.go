@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/mdwhatcott/pipelines"
+	"github.com/mdwhatcott/tobloggan/code/contracts"
 	"github.com/smarty/assertions/should"
 	"github.com/smarty/gunit"
 )
@@ -13,7 +13,7 @@ var boink = errors.New("boink")
 
 type StationFixture struct {
 	*gunit.Fixture
-	station pipelines.Station
+	station contracts.Station
 	outputs []any
 }
 
@@ -25,7 +25,7 @@ func (this *StationFixture) do(input any) {
 	this.station.Do(input, this.output)
 }
 func (this *StationFixture) finalize() {
-	this.station.(pipelines.Finalizer).Finalize(this.output)
+	this.station.(contracts.Finalizer).Finalize(this.output)
 }
 func (this *StationFixture) output(v any) {
 	this.outputs = append(this.outputs, v)

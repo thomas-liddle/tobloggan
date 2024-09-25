@@ -10,7 +10,7 @@ type SourceReader struct {
 	fs fs.FS
 }
 
-func NewSourceReader(fs fs.FS) *SourceReader {
+func NewSourceReader(fs fs.FS) contracts.Station {
 	return &SourceReader{fs: fs}
 }
 

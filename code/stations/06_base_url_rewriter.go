@@ -12,7 +12,7 @@ type BaseURLRewriter struct {
 	pattern *regexp.Regexp
 }
 
-func NewBaseURLRewriter(baseURL string) *BaseURLRewriter {
+func NewBaseURLRewriter(baseURL string) contracts.Station {
 	return &BaseURLRewriter{
 		baseURL: fmt.Sprintf(`href="%s/$1`, baseURL),
 		pattern: regexp.MustCompile(`href="/([^/])`),

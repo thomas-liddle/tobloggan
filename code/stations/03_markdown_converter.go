@@ -1,7 +1,6 @@
 package stations
 
 import (
-	"github.com/mdwhatcott/pipelines"
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
@@ -13,7 +12,7 @@ type MarkdownConverter struct {
 	md Markdown
 }
 
-func NewMarkdownConverter(md Markdown) pipelines.Station {
+func NewMarkdownConverter(md Markdown) contracts.Station {
 	return &MarkdownConverter{md: md}
 }
 

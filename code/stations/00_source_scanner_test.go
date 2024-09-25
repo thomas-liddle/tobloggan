@@ -35,7 +35,7 @@ func (this *SourceScannerFixture) TestGivenASourceDirectoryThatDoesNotExist_Emit
 		this.So(this.outputs[0], should.Wrap, os.ErrNotExist)
 	}
 }
-func (this *SourceScannerFixture) TestGivenASourceDirectoryWithBlogSourceFiles_EmitAllContainingBlogSourceFilePaths() {
+func (this *SourceScannerFixture) TestGivenASourceDirectoryWithBlogSourceFiles_EmitAllBlogSourceFilePaths() {
 	this.do(contracts.SourceDirectory("src"))
 	this.assertOutputs(
 		contracts.SourceFilePath("src/article-1.md"),

@@ -10,7 +10,7 @@ import (
 
 type ArticleParser struct{}
 
-func NewArticleParser() *ArticleParser {
+func NewArticleParser() contracts.Station {
 	return &ArticleParser{}
 }
 

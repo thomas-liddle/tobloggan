@@ -7,6 +7,15 @@ type Logger interface {
 }
 
 type (
+	Station interface {
+		Do(input any, output func(any))
+	}
+	Finalizer interface {
+		Finalize(output func(any))
+	}
+)
+
+type (
 	FSWriter interface {
 		MkdirAll
 		WriteFile
