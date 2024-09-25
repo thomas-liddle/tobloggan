@@ -3,7 +3,6 @@ package stations
 import (
 	"testing"
 
-	"github.com/mdwhatcott/pipelines"
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 	"github.com/smarty/assertions/should"
 	"github.com/smarty/gunit"
@@ -16,7 +15,6 @@ func TestMarkdownConverterFixture(t *testing.T) {
 type MarkdownConverterFixture struct {
 	*gunit.Fixture
 	StationFixture
-	station     pipelines.Station
 	markdownErr error
 }
 
