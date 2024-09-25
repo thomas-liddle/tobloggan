@@ -11,4 +11,5 @@ clean:
 generate: clean
 	go run github.com/mdwhatcott/tobloggan/main/tobloggan \
 	-source /Users/mike/src/github.com/mdwhatcott/tobloggan/content \
-	-target /Users/mike/src/github.com/mdwhatcott/tobloggan/generated
+	-target /Users/mike/src/github.com/mdwhatcott/tobloggan/generated \
+	-base-url "/tobloggan"
