@@ -21,7 +21,7 @@ func (this *Reporter) Do(input any, _ func(any)) {
 	case error:
 		this.failed.Store(true)
 		this.logger.Printf("err: %v", input)
-	case contracts.Article:
+	case contracts.Article: // TODO: contracts.Page
 		this.logger.Printf("article: %s", input.Title)
 	default:
 		this.logger.Printf("unexpected type: %s", reflect.TypeOf(input))

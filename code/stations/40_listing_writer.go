@@ -2,32 +2,29 @@ package stations
 
 import (
 	"fmt"
-	"path/filepath"
 	"sort"
 	"strings"
 
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
-type ListingWriter struct {
-	targetDirectory string
-	fs              contracts.WriteFile
-	articles        []contracts.Article
-	template        string
+type ListingRenderer struct {
+	articles []contracts.Article
+	template string
 }
 
-func NewListingWriter(targetDirectory string, fs contracts.WriteFile, template string) *ListingWriter {
-	return &ListingWriter{targetDirectory: targetDirectory, fs: fs, template: template}
+func NewListingRenderer(template string) *ListingRenderer {
+	return &ListingRenderer{template: template}
 }
 
-func (this *ListingWriter) Do(input any, output func(any)) {
+func (this *ListingRenderer) Do(input any, output func(any)) {
 	switch input := input.(type) {
 	case contracts.Article:
 		this.articles = append(this.articles, input)
 	}
 	output(input)
 }
-func (this *ListingWriter) Finalize(output func(any)) {
+func (this *ListingRenderer) Finalize(output func(any)) {
 	sort.SliceStable(this.articles, func(i, j int) bool {
 		return this.articles[i].Date.Before(this.articles[j].Date)
 	})
@@ -38,10 +35,5 @@ func (this *ListingWriter) Finalize(output func(any)) {
 		builder.WriteString("\n")
 	}
 	replacer := strings.NewReplacer("{{Listing}}", builder.String())
-	content := replacer.Replace(this.template)
-	path := filepath.Join(this.targetDirectory, "index.html")
-	err := this.fs.WriteFile(path, []byte(content), 0644)
-	if err != nil {
-		output(contracts.Error(err))
-	}
+	output(contracts.Page{Path: "/", Content: replacer.Replace(this.template)})
 }
