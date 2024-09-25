@@ -38,6 +38,8 @@ func Test(t *testing.T) {
 		t.Error("failed to generate blog")
 	}
 
+	t.Log("\n" + logBuffer.String())
+
 	listing, _ := fs.ReadFile(fileSystem.MapFS, "output/index.html")
 	article1, _ := fs.ReadFile(fileSystem.MapFS, "output/article/1/index.html")
 	article2, _ := fs.ReadFile(fileSystem.MapFS, "output/article/2/index.html")
