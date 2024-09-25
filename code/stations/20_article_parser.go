@@ -12,12 +12,10 @@ type MarkdownConverter interface {
 	Convert(content string) (string, error)
 }
 
-type ArticleParser struct {
-	md MarkdownConverter
-}
+type ArticleParser struct{}
 
-func NewArticleParser(md MarkdownConverter) *ArticleParser {
-	return &ArticleParser{md: md}
+func NewArticleParser() *ArticleParser {
+	return &ArticleParser{}
 }
 
 func (this *ArticleParser) Do(input any, output func(any)) {
@@ -34,11 +32,7 @@ func (this *ArticleParser) Do(input any, output func(any)) {
 			output(contracts.Errorf("%w (%w): %s", errMalformedSource, err, input))
 			return
 		}
-		source.Body, err = this.md.Convert(string(bytes.TrimSpace(body)))
-		if err != nil {
-			output(contracts.Errorf("%w (%w): %s", errMalformedSource, err, input))
-			return
-		}
+		source.Body = string(bytes.TrimSpace(body))
 		output(source)
 	default:
 		output(input)

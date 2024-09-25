@@ -25,9 +25,10 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner  = stations.NewSourceScanner(config.FileSystemReader)
-		reader   = stations.NewSourceReader(config.FileSystemReader)
-		parser   = stations.NewArticleParser(config.MarkdownConverter)
+		scanner = stations.NewSourceScanner(config.FileSystemReader)
+		reader  = stations.NewSourceReader(config.FileSystemReader)
+		parser  = stations.NewArticleParser()
+		// TODO: markdown parser
 		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter, config.ArticleTemplate)
 		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter, config.ListingTemplate)
 		reporter = stations.NewReporter(config.Logger, failure)

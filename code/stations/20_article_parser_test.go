@@ -20,12 +20,8 @@ type ArticleParserFixture struct {
 	markdownErr error
 }
 
-func (this *ArticleParserFixture) Convert(content string) (string, error) {
-	return content + " CONVERTED", this.markdownErr
-}
-
 func (this *ArticleParserFixture) Setup() {
-	this.parser = NewArticleParser(this)
+	this.parser = NewArticleParser()
 }
 
 func (this *ArticleParserFixture) TestUnhandledTypeEmitted() {
@@ -39,7 +35,7 @@ func (this *ArticleParserFixture) TestArticleMetaAndContentReadFromDiskAndEmitte
 			Slug:  "/article/1",
 			Title: "Article 1",
 			Date:  time.Date(2024, time.September, 4, 0, 0, 0, 0, time.UTC),
-			Body:  "The contents of article 1. CONVERTED",
+			Body:  "The contents of article 1.",
 		},
 	})
 }
@@ -51,13 +47,6 @@ func (this *ArticleParserFixture) TestMissingDivider() {
 }
 func (this *ArticleParserFixture) TestMalformedMetadata() {
 	this.parser.Do(contracts.SourceFile("{bad-json}\n+++\nContent"), this.Output)
-	if this.So(this.outputs, should.HaveLength, 1) {
-		this.So(this.outputs[0], should.Wrap, errMalformedSource)
-	}
-}
-func (this *ArticleParserFixture) TestInvalidMarkdown() {
-	this.markdownErr = boink
-	this.parser.Do(contracts.SourceFile(article1Content), this.Output)
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}
