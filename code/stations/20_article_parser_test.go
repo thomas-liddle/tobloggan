@@ -14,22 +14,16 @@ func TestArticleParserFixture(t *testing.T) {
 }
 
 type ArticleParserFixture struct {
-	*gunit.Fixture
 	StationFixture
-	parser      *ArticleParser
 	markdownErr error
 }
 
 func (this *ArticleParserFixture) Setup() {
-	this.parser = NewArticleParser()
+	this.station = NewArticleParser()
 }
 
-func (this *ArticleParserFixture) TestUnhandledTypeEmitted() {
-	this.parser.Do("wrong-type", this.Output)
-	this.So(this.outputs, should.Equal, []any{"wrong-type"})
-}
 func (this *ArticleParserFixture) TestArticleMetaAndContentReadFromDiskAndEmitted() {
-	this.parser.Do(contracts.SourceFile(article1Content), this.Output)
+	this.do(contracts.SourceFile(article1Content))
 	this.So(this.outputs, should.Equal, []any{
 		contracts.Article{
 			Slug:  "/article/1",
@@ -40,13 +34,13 @@ func (this *ArticleParserFixture) TestArticleMetaAndContentReadFromDiskAndEmitte
 	})
 }
 func (this *ArticleParserFixture) TestMissingDivider() {
-	this.parser.Do(contracts.SourceFile("{} Content without separator"), this.Output)
+	this.do(contracts.SourceFile("{} Content without separator"))
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}
 }
 func (this *ArticleParserFixture) TestMalformedMetadata() {
-	this.parser.Do(contracts.SourceFile("{bad-json}\n+++\nContent"), this.Output)
+	this.do(contracts.SourceFile("{bad-json}\n+++\nContent"))
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}

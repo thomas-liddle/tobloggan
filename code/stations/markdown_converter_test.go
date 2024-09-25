@@ -13,7 +13,6 @@ func TestMarkdownConverterFixture(t *testing.T) {
 }
 
 type MarkdownConverterFixture struct {
-	*gunit.Fixture
 	StationFixture
 	markdownErr error
 }
@@ -26,20 +25,16 @@ func (this *MarkdownConverterFixture) Setup() {
 	this.station = NewMarkdownConverter(this)
 }
 
-func (this *MarkdownConverterFixture) TestUnhandledTypeEmitted() {
-	this.station.Do("wrong-type", this.Output)
-	this.So(this.outputs, should.Equal, []any{"wrong-type"})
-}
 func (this *MarkdownConverterFixture) TestBodyConverted() {
 	input := contracts.Article{Body: article1Content}
-	this.station.Do(input, this.Output)
-	this.So(this.outputs, should.Equal, []any{
+	this.do(input)
+	this.assertOutputs(
 		contracts.Article{Body: article1Content + " CONVERTED"},
-	})
+	)
 }
 func (this *MarkdownConverterFixture) TestInvalidMarkdown() {
 	this.markdownErr = boink
-	this.station.Do(contracts.Article{Body: article1Content}, this.Output)
+	this.do(contracts.Article{Body: article1Content})
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, errMalformedSource)
 	}

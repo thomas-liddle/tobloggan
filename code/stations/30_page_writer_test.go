@@ -15,7 +15,6 @@ func TestArticleWriterFixture(t *testing.T) {
 }
 
 type ArticleWriterFixture struct {
-	*gunit.Fixture
 	StationFixture
 	fs           fstest.MapFS
 	writeFileErr error
@@ -33,10 +32,6 @@ func (this *ArticleWriterFixture) WriteFile(filename string, data []byte, perm o
 func (this *ArticleWriterFixture) Setup() {
 	this.fs = fstest.MapFS{}
 	this.station = NewPageWriter("target/directory", this)
-}
-func (this *ArticleWriterFixture) TestUnhandledTypeEmitted() {
-	this.do("wrong-type")
-	this.So(this.outputs, should.Equal, []any{"wrong-type"})
 }
 func (this *ArticleWriterFixture) TestMkdirErr() {
 	this.mkdirAllErr = boink

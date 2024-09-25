@@ -11,8 +11,6 @@ type SourceScanner struct {
 	fs fs.FS
 }
 
-// TODO: all stations should return pipelines.Station (and maybe we define that interface ourselves in contracts)
-
 func NewSourceScanner(fs fs.FS) *SourceScanner {
 	return &SourceScanner{fs: fs}
 }

@@ -12,21 +12,27 @@ import (
 var boink = errors.New("boink")
 
 type StationFixture struct {
-	*gunit.Fixture // TODO: remove embedded *gunit.Fixture type on all fixtures that embed StationFixture
+	*gunit.Fixture
 
-	station pipelines.Station // TODO: migrate all fixtures to use this field
+	station pipelines.Station
 	outputs []any
 }
 
-func (this *StationFixture) TestUnhandledTypeEmitted() { // TODO: remove this test on other fixtures
+func (this *StationFixture) TestUnhandledTypeEmitted() {
 	this.do("wrong-type")
 	this.So(this.outputs, should.Equal, []any{"wrong-type"})
 }
-func (this *StationFixture) do(input any) { // TODO: migrate all fixtures to use this method?
-	this.station.Do(input, this.Output)
+func (this *StationFixture) do(input any) {
+	this.station.Do(input, this.output)
 }
-func (this *StationFixture) Output(v any) { // TODO: rename to output (lowercase), or inline completely
+func (this *StationFixture) finalize() {
+	this.station.(pipelines.Finalizer).Finalize(this.output)
+}
+func (this *StationFixture) output(v any) {
 	this.outputs = append(this.outputs, v)
+}
+func (this *StationFixture) assertOutputs(expected ...any) {
+	this.So(this.outputs, should.Equal, expected)
 }
 
 ////////////////////////////////////////////////////////////

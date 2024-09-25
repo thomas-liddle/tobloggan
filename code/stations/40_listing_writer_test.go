@@ -18,10 +18,8 @@ func TestListingWriterFixture(t *testing.T) {
 }
 
 type ListingWriterFixture struct {
-	*gunit.Fixture
 	StationFixture
 	fs           fstest.MapFS
-	writer       *ListingRenderer
 	writeFileErr error
 }
 
@@ -32,23 +30,18 @@ func (this *ListingWriterFixture) WriteFile(filename string, data []byte, perm o
 
 func (this *ListingWriterFixture) Setup() {
 	this.fs = make(fstest.MapFS)
-	this.writer = NewListingRenderer(html.ListingTemplate)
+	this.station = NewListingRenderer(html.ListingTemplate)
 }
 
-func (this *ListingWriterFixture) TestUnhandledTypeEmitted() {
-	this.writer.Do("wrong-type", this.Output)
-	this.So(this.outputs, should.Equal, []any{"wrong-type"})
-}
 func (this *ListingWriterFixture) TestArticlesWrittenToListing() {
 	article1 := contracts.Article{Slug: "s1", Title: "t1", Date: date("2024-09-01"), Body: "b1"}
 	article2 := contracts.Article{Slug: "s2", Title: "t2", Date: date("2024-09-02"), Body: "b2"}
 	article3 := contracts.Article{Slug: "s3", Title: "t3", Date: date("2024-09-03"), Body: "b3"}
+	this.do(article1)
+	this.do(article2)
+	this.do(article3)
 
-	this.writer.Do(article1, this.Output)
-	this.writer.Do(article2, this.Output)
-	this.writer.Do(article3, this.Output)
-
-	this.writer.Finalize(this.Output)
+	this.finalize()
 
 	this.So(this.outputs[:3], should.Equal, []any{
 		article1,
