@@ -42,8 +42,8 @@ func Test(t *testing.T) {
 	article1, _ := fs.ReadFile(fileSystem.MapFS, "output/article/1/index.html")
 	article2, _ := fs.ReadFile(fileSystem.MapFS, "output/article/2/index.html")
 
-	should.So(t, string(listing), should.ContainSubstring, `<li><a href="/article/1">Article 1</a></li>`)
-	should.So(t, string(listing), should.ContainSubstring, `<li><a href="/article/2">Article 2</a></li>`)
+	should.So(t, string(listing), should.ContainSubstring, `<li><a href="file:///article/1">Article 1</a></li>`)
+	should.So(t, string(listing), should.ContainSubstring, `<li><a href="file:///article/2">Article 2</a></li>`)
 	should.So(t, string(article1), should.ContainSubstring, `<p>The contents of article 1.</p>`)
 	should.So(t, string(article2), should.ContainSubstring, `<p>The contents of article 2.</p>`)
 }

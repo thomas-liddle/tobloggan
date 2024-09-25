@@ -31,10 +31,9 @@ func GenerateBlog(config Config) bool {
 		markdown = stations.NewMarkdownConverter(config.Markdown)
 		listing  = stations.NewListingRenderer(config.ListingTemplate)
 		renderer = stations.NewArticleRenderer(config.ArticleTemplate)
+		baseURL  = stations.NewBaseURLRewriter(config.BaseURL)
 		writer   = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
 		reporter = stations.NewReporter(config.Logger, failure)
-
-		// TODO: incorporate baseurl writer
 
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(config.Logger),
@@ -44,6 +43,7 @@ func GenerateBlog(config Config) bool {
 			pipelines.Options.StationSingleton(markdown),
 			pipelines.Options.StationSingleton(listing),
 			pipelines.Options.StationSingleton(renderer),
+			pipelines.Options.StationSingleton(baseURL),
 			pipelines.Options.StationSingleton(writer), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(reporter),
 		)
