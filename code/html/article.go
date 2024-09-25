@@ -1,7 +1,5 @@
 package html
 
-// TODO: experiment with embedded files
-
 const ArticleTemplate = `<!doctype html>
 <html lang="en">
     <head>
