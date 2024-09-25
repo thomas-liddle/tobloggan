@@ -10,14 +10,14 @@ import (
 )
 
 type Config struct {
-	Logger            contracts.Logger
-	MarkdownConverter stations.MarkdownConverter
-	FileSystemReader  fs.FS
-	FileSystemWriter  stations.FileSystemWriter
-	TargetDirectory   string
-	ArticleTemplate   string
-	ListingTemplate   string
-	BaseURL           string
+	Logger           contracts.Logger
+	Markdown         stations.Markdown
+	FileSystemReader fs.FS
+	FileSystemWriter stations.FileSystemWriter
+	TargetDirectory  string
+	ArticleTemplate  string
+	ListingTemplate  string
+	BaseURL          string
 }
 
 func GenerateBlog(config Config) bool {
@@ -25,10 +25,10 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner = stations.NewSourceScanner(config.FileSystemReader)
-		reader  = stations.NewSourceReader(config.FileSystemReader)
-		parser  = stations.NewArticleParser()
-		// TODO: markdown parser
+		scanner  = stations.NewSourceScanner(config.FileSystemReader)
+		reader   = stations.NewSourceReader(config.FileSystemReader)
+		parser   = stations.NewArticleParser()
+		markdown = stations.NewMarkdownConverter(config.Markdown)
 		articles = stations.NewArticleWriter(config.TargetDirectory, config.FileSystemWriter, config.ArticleTemplate)
 		listing  = stations.NewListingWriter(config.TargetDirectory, config.FileSystemWriter, config.ListingTemplate)
 		reporter = stations.NewReporter(config.Logger, failure)
@@ -40,6 +40,7 @@ func GenerateBlog(config Config) bool {
 			pipelines.Options.StationSingleton(scanner),
 			pipelines.Options.StationSingleton(reader), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(parser),
+			pipelines.Options.StationSingleton(markdown),
 			pipelines.Options.StationSingleton(articles), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(listing),
 			pipelines.Options.StationSingleton(reporter),

@@ -23,14 +23,14 @@ func main() {
 	log.SetPrefix(">>> ")
 	cli := parseCLI(os.Args[1:])
 	app := integration.Config{
-		Logger:            log.Default(),
-		MarkdownConverter: markdown.NewConverter(),
-		FileSystemReader:  os.DirFS(cli.sourceDirectory),
-		FileSystemWriter:  FSWriter{},
-		TargetDirectory:   cli.targetDirectory,
-		ArticleTemplate:   html.ArticleTemplate,
-		ListingTemplate:   html.ListingTemplate,
-		BaseURL:           cli.baseURL,
+		Logger:           log.Default(),
+		Markdown:         markdown.NewConverter(),
+		FileSystemReader: os.DirFS(cli.sourceDirectory),
+		FileSystemWriter: FSWriter{},
+		TargetDirectory:  cli.targetDirectory,
+		ArticleTemplate:  html.ArticleTemplate,
+		ListingTemplate:  html.ListingTemplate,
+		BaseURL:          cli.baseURL,
 	}
 	log.Printf("source: %s", cli.sourceDirectory)
 	log.Printf("target: %s", cli.targetDirectory)

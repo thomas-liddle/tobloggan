@@ -8,10 +8,6 @@ import (
 	"github.com/mdwhatcott/tobloggan/code/contracts"
 )
 
-type MarkdownConverter interface {
-	Convert(content string) (string, error)
-}
-
 type ArticleParser struct{}
 
 func NewArticleParser() *ArticleParser {
