@@ -13,7 +13,6 @@ var boink = errors.New("boink")
 
 type StationFixture struct {
 	*gunit.Fixture
-
 	station pipelines.Station
 	outputs []any
 }
