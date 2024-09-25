@@ -3,17 +3,18 @@ package main
 import (
 	"log"
 	"os"
-	"time"
 
 	"github.com/mdwhatcott/tobloggan/code/html"
 	"github.com/mdwhatcott/tobloggan/code/integration"
 	"github.com/mdwhatcott/tobloggan/code/markdown"
 )
 
-func main() {
-	started := time.Now()
+func init() {
 	log.SetFlags(0)
 	log.SetPrefix(">>> ")
+}
+
+func main() {
 	cli := parseFlags(os.Args[1:])
 	ok := integration.GenerateBlog(integration.Config{
 		Logger:           log.Default(),
@@ -25,8 +26,7 @@ func main() {
 		ListingTemplate:  html.ListingTemplate,
 		BaseURL:          cli.baseURL,
 	})
-	log.Printf("finished in %s", time.Since(started))
 	if !ok {
-		os.Exit(1)
+		log.Fatal("WARNING: The blog failed to generate successfully!")
 	}
 }

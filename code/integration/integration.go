@@ -2,7 +2,9 @@ package integration
 
 import (
 	"io/fs"
+	"log"
 	"sync/atomic"
+	"time"
 
 	"github.com/mdwhatcott/pipelines"
 	"github.com/mdwhatcott/tobloggan/code/contracts"
@@ -21,6 +23,9 @@ type Config struct {
 }
 
 func GenerateBlog(config Config) bool {
+	started := time.Now()
+	defer func() { log.Printf("finished in %s", time.Since(started)) }()
+
 	var (
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
