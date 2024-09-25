@@ -17,31 +17,22 @@ func TestReporterFixture(t *testing.T) {
 }
 
 type ReporterFixture struct {
-	*gunit.Fixture
 	StationFixture
-	log      bytes.Buffer
-	reporter *Reporter
-	failure  *atomic.Bool
+	log     bytes.Buffer
+	failure *atomic.Bool
 }
 
 func (this *ReporterFixture) Setup() {
 	this.failure = new(atomic.Bool)
-	this.reporter = NewReporter(log.New(io.MultiWriter(this, &this.log), "", 0), this.failure)
-}
-func (this *ReporterFixture) Teardown() {
-	this.So(this.outputs, should.BeEmpty)
+	this.station = NewReporter(log.New(io.MultiWriter(this, &this.log), "", 0), this.failure)
 }
 
 func (this *ReporterFixture) TestErrReportsFailure() {
-	this.reporter.Do(boink, nil)
+	this.do(boink)
 	this.So(this.failure.Load(), should.BeTrue)
 	this.So(this.log.String(), should.ContainSubstring, boink.Error())
 }
-func (this *ReporterFixture) TestReportsArticle() {
-	this.reporter.Do(contracts.Article{Title: "A Tale of Two Cities"}, this.Output)
-	this.So(this.log.String(), should.ContainSubstring, "A Tale of Two Cities")
-}
-func (this *ReporterFixture) TestReportsWhatever() {
-	this.reporter.Do(42, nil)
-	this.So(this.log.String(), should.ContainSubstring, "unexpected type: int")
+func (this *ReporterFixture) TestReportsPage() {
+	this.do(contracts.Page{Path: "/output/a-tale-of-two-cities/index.html"})
+	this.So(this.log.String(), should.ContainSubstring, "/output/a-tale-of-two-cities/index.html")
 }
