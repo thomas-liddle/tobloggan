@@ -3,20 +3,20 @@ package html
 const ListingTemplate = `<!doctype html>
 <html lang="en">
     <head>
-        <title>Your Name Here</title>
+        <title>` + BlogName + `</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Your Name Here">
-        <meta name="description" content="description">
+        <meta name="author" content="` + BlogName + `">
+        <meta name="description" content="` + BlogDescription + `">
         ` + CSS + `
     </head>
 
     <body>
         <nav>
-            <a href="/about/">About</a>
+            <a href="/about">About</a>
         </nav>
-        <h1>Your Name Here</h1>
-        <p>Something about yourself and this website here.</p>
+        <h1>` + BlogName + `</h1>
+        <p>` + BlogDescription + `</p>
 		<ul>
 		{{Listing}}
 		</ul>

@@ -14,7 +14,6 @@ const CSS = `
 				text-size-adjust: none;
 				-moz-text-size-adjust: none;
 			}
-			
 			body {
 				font-family: Tahoma, sans-serif;
 				margin-left: auto;
@@ -23,7 +22,6 @@ const CSS = `
 				line-height: 1.5em;
 				color: var(--text-color);
 			}
-			
 			body p.article-entry {
 				margin: 0em;
 				text-overflow: ellipsis;
@@ -35,18 +33,15 @@ const CSS = `
 				font-size: 0.8em;
 				color: var(--hint-color);
 			}
-			
 			header {
 				font-size: 1.2em;
 				margin-top: 1.2em;
 				margin-bottom: 1.2em;
 			}
-			
 			h1, h2, h3, h4, h5, h6 {
 				font-family: Verdana;
 				line-height: 2em;
 			}
-			
 			header, footer .outro {
 				margin: 2em 0.1em;
 				border: 0.2em solid var(--text-color);
@@ -72,11 +67,9 @@ const CSS = `
 				border: 0.1em solid var(--text-color);
 				border-radius: 0.3em;
 			}
-			
 			footer .outro {
 				margin-top: 8em;
 			}
-			
 			a {
 				padding: 0.2em;
 			}
@@ -91,7 +84,6 @@ const CSS = `
 				background-color: var(--text-color);
 				border-radius: 0.3em;
 			}
-			
 			dt {
 				margin-top: 2em;
 			}
@@ -105,7 +97,6 @@ const CSS = `
 			pre code {
 				border: none;
 			}
-			
 			code {
 				padding: 0.1em;
 				line-height: 1.2em;
@@ -113,14 +104,12 @@ const CSS = `
 				border: 0.05em dotted;
 				border-radius: 0.2em;
 			}
-			
 			blockquote {
 				padding-left:  0.5em; 
 				margin-inline: 0.5em;
 				border-left:   0.2em solid var(--text-color);
 			}
-			
-			img { 
+			img {
 				max-width: 100%;
 				box-shadow: 0 0 1em var(--text-color);
 				border-radius: 0.3em;
