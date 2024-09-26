@@ -20,7 +20,6 @@ Consider a text file called `article.md` with the following contents:
     "draft": true,
     "slug": "/the-path/of-the/article",
     "title": "The Title of the Article",
-    "topics": ["topic-1", "topic-2"],
     "date": "2024-09-25T00:00:00Z"
 }
 
@@ -39,7 +38,6 @@ Some facts about content files and their structure:
    - `draft` (boolean) If `true`, the article will not be published.
    - `slug` (string) The unique URL path of the article.
    - `title` (string) The text to use as the `<h1>` of the article.
-   - `topics` (array of strings, kabab-case) Used to generate listings of articles that share topics.
    - `date` (string, RFC3339 formatted date) If future, the article will not be published.
 3. The second element of a content file is the separator `+++`.
 4. The third element of a content file is arbitrary content, formatted as markdown (which will be converted to HTML).
