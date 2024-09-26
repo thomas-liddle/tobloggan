@@ -12,9 +12,6 @@ const ListingTemplate = `<!doctype html>
     </head>
 
     <body>
-        <nav>
-            <a href="/about">About</a>
-        </nav>
         <h1>` + BlogName + `</h1>
         <p>` + BlogDescription + `</p>
 		<ul>
