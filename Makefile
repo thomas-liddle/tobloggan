@@ -10,16 +10,16 @@ clean:
 
 dev:
 	go run tobloggan/main/tobloggan \
-    	-source /Users/mike/src/tobloggan/content \
-    	-target /Users/mike/src/tobloggan/generated \
+    	-source /Users/mike/src/github.com/mdwhatcott/tobloggan/content \
+    	-target /Users/mike/src/github.com/mdwhatcott/tobloggan/generated \
     	-base-url "http://localhost:8000" && \
     open "http://localhost:8000/" && \
     python3 -m http.server --directory generated
 
 publish: clean
 	go run tobloggan/main/tobloggan \
-		-source /Users/mike/src/tobloggan/content \
-		-target /Users/mike/src/tobloggan/docs \
+		-source /Users/mike/src/github.com/mdwhatcott/tobloggan/content \
+		-target /Users/mike/src/github.com/mdwhatcott/tobloggan/docs \
 		-base-url "/tobloggan" && \
 	git add ./docs && \
 	git commit -m "auto-publish" && \
