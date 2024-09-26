@@ -21,7 +21,7 @@ func (this *Reporter) Do(input any, output func(any)) {
 		this.failed.Store(true)
 		this.logger.Printf("err: %v", input)
 	case contracts.Page:
-		this.logger.Printf("article: %s", input.Path)
+		this.logger.Printf("page: %s", input.Path)
 	default:
 		output(input)
 	}
