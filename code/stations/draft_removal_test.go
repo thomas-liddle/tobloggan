@@ -25,3 +25,8 @@ func (this *DraftRemovalFixture) TestDraftDropped() {
 	this.do(input)
 	this.So(this.outputs, should.BeEmpty)
 }
+func (this *DraftRemovalFixture) TestNonDraftRetained() {
+	input := contracts.Article{Draft: false}
+	this.do(input)
+	this.assertOutputs(input)
+}
