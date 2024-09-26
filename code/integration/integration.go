@@ -11,6 +11,7 @@ import (
 )
 
 type Config struct {
+	Clock            contracts.Clock
 	Logger           contracts.Logger
 	Markdown         stations.Markdown
 	FileSystemReader fs.FS
@@ -22,18 +23,18 @@ type Config struct {
 }
 
 func GenerateBlog(config Config) bool {
-	started := time.Now()
+	started := config.Clock()
 	defer func() { config.Logger.Printf("finished in %s", time.Since(started)) }()
 
 	var (
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner = stations.NewSourceScanner(config.FileSystemReader)
-		reader  = stations.NewSourceReader(config.FileSystemReader)
-		parser  = stations.NewArticleParser()
-		drafts  = stations.NewDraftRemoval()
-		// TODO: remove future
+		scanner  = stations.NewSourceScanner(config.FileSystemReader)
+		reader   = stations.NewSourceReader(config.FileSystemReader)
+		parser   = stations.NewArticleParser()
+		drafts   = stations.NewDraftRemoval()
+		futures  = stations.NewFutureRemoval(started)
 		markdown = stations.NewMarkdownConverter(config.Markdown)
 		// TODO: topic listings (take unlisted articles into account?)
 		listing  = stations.NewListingRenderer(config.ListingTemplate) // TODO: support for unlisted articles
@@ -48,6 +49,7 @@ func GenerateBlog(config Config) bool {
 			pipelines.Options.StationSingleton(reader), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(parser),
 			pipelines.Options.StationSingleton(drafts),
+			pipelines.Options.StationSingleton(futures),
 			pipelines.Options.StationSingleton(markdown),
 			pipelines.Options.StationSingleton(listing),
 			pipelines.Options.StationSingleton(renderer),

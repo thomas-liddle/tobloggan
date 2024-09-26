@@ -1,6 +1,11 @@
 package contracts
 
-import "os"
+import (
+	"os"
+	"time"
+)
+
+type Clock func() time.Time
 
 type Logger interface {
 	Printf(format string, args ...interface{})

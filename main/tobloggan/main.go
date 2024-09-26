@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"os"
+	"time"
 
 	"github.com/mdwhatcott/tobloggan/code/html"
 	"github.com/mdwhatcott/tobloggan/code/integration"
@@ -17,6 +18,7 @@ func init() {
 func main() {
 	cli := parseFlags(os.Args[1:])
 	ok := integration.GenerateBlog(integration.Config{
+		Clock:            time.Now,
 		Logger:           log.Default(),
 		Markdown:         markdown.NewConverter(),
 		FileSystemReader: os.DirFS(cli.sourceDirectory),
