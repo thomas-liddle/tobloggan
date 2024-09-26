@@ -29,12 +29,14 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner  = stations.NewSourceScanner(config.FileSystemReader)
-		reader   = stations.NewSourceReader(config.FileSystemReader)
-		parser   = stations.NewArticleParser()
+		scanner = stations.NewSourceScanner(config.FileSystemReader)
+		reader  = stations.NewSourceReader(config.FileSystemReader)
+		parser  = stations.NewArticleParser()
 		drafts  = stations.NewDraftRemoval()
+		// TODO: remove future
 		markdown = stations.NewMarkdownConverter(config.Markdown)
-		listing  = stations.NewListingRenderer(config.ListingTemplate)
+		// TODO: topic listings (take unlisted articles into account?)
+		listing  = stations.NewListingRenderer(config.ListingTemplate) // TODO: support for unlisted articles
 		renderer = stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL  = stations.NewBaseURLRewriter(config.BaseURL)
 		writer   = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
