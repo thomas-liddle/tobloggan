@@ -36,8 +36,7 @@ func GenerateBlog(config Config) bool {
 		drafts   = stations.NewDraftRemoval()
 		futures  = stations.NewFutureRemoval(started)
 		markdown = stations.NewMarkdownConverter(config.Markdown)
-		// TODO: topic listings (take unlisted articles into account?)
-		listing  = stations.NewListingRenderer(config.ListingTemplate) // TODO: support for unlisted articles
+		listing  = stations.NewListingRenderer(config.ListingTemplate)
 		renderer = stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL  = stations.NewBaseURLRewriter(config.BaseURL)
 		writer   = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
