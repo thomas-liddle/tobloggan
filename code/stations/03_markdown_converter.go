@@ -21,7 +21,7 @@ func (this *MarkdownConverter) Do(input any, output func(any)) {
 	case contracts.Article:
 		converted, err := this.md.Convert(input.Body)
 		if err != nil {
-			output(contracts.Errorf("%w (%w): %s", errMalformedSource, err, input))
+			output(contracts.Errorf("%w (%w): %v", errMalformedSource, err, input))
 		} else {
 			input.Body = converted
 			output(input)
