@@ -5,9 +5,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/mdwhatcott/tobloggan/code/html"
-	"github.com/mdwhatcott/tobloggan/code/integration"
-	"github.com/mdwhatcott/tobloggan/code/markdown"
+	"tobloggan/code/html"
+	"tobloggan/code/integration"
+	"tobloggan/code/markdown"
 )
 
 func init() {

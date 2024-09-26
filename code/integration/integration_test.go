@@ -8,9 +8,11 @@ import (
 	"sync"
 	"testing"
 	"testing/fstest"
+	"time"
 
-	"github.com/mdwhatcott/tobloggan/code/html"
-	"github.com/mdwhatcott/tobloggan/code/markdown"
+	"tobloggan/code/html"
+	"tobloggan/code/markdown"
+
 	"github.com/smarty/assertions/should"
 )
 
@@ -24,6 +26,7 @@ func Test(t *testing.T) {
 	_ = fileSystem.WriteFile("article-1.md", []byte(article1Content), 0644)
 	_ = fileSystem.WriteFile("article-2.md", []byte(article2Content), 0644)
 	config := Config{
+		Clock:            time.Now,
 		Logger:           log.New(&logBuffer, "[TEST] ", 0),
 		Markdown:         markdown.NewConverter(),
 		FileSystemReader: fileSystem,

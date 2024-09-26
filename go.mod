@@ -1,4 +1,4 @@
-module github.com/mdwhatcott/tobloggan
+module tobloggan
 
 go 1.23
 

@@ -3,7 +3,7 @@ package stations
 import (
 	"time"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type FutureRemoval struct {

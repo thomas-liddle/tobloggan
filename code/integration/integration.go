@@ -5,9 +5,10 @@ import (
 	"sync/atomic"
 	"time"
 
+	"tobloggan/code/contracts"
+	"tobloggan/code/stations"
+
 	"github.com/mdwhatcott/pipelines"
-	"github.com/mdwhatcott/tobloggan/code/contracts"
-	"github.com/mdwhatcott/tobloggan/code/stations"
 )
 
 type Config struct {

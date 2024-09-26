@@ -1,6 +1,6 @@
 package stations
 
-import "github.com/mdwhatcott/tobloggan/code/contracts"
+import "tobloggan/code/contracts"
 
 type DraftRemoval struct{}
 

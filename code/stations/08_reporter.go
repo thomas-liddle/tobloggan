@@ -3,7 +3,7 @@ package stations
 import (
 	"sync/atomic"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type Reporter struct {

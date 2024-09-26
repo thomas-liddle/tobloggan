@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type BaseURLRewriter struct {

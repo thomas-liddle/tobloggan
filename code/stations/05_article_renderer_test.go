@@ -3,7 +3,8 @@ package stations
 import (
 	"testing"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
+
 	"github.com/smarty/gunit"
 )
 

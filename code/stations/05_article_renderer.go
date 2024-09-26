@@ -3,7 +3,7 @@ package stations
 import (
 	"strings"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type ArticleRenderer struct {

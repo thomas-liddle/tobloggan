@@ -3,7 +3,7 @@ package stations
 import (
 	"path/filepath"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type PageWriter struct {

@@ -7,7 +7,8 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
+
 	"github.com/smarty/assertions/should"
 	"github.com/smarty/gunit"
 )

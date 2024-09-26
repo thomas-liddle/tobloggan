@@ -9,8 +9,8 @@ import (
 	"github.com/smarty/assertions/should"
 	"github.com/smarty/gunit"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
-	"github.com/mdwhatcott/tobloggan/code/html"
+	"tobloggan/code/contracts"
+	"tobloggan/code/html"
 )
 
 func TestListingWriterFixture(t *testing.T) {

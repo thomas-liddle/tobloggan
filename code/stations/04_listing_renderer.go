@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type ListingRenderer struct {

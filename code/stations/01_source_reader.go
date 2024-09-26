@@ -3,7 +3,7 @@ package stations
 import (
 	"io/fs"
 
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type SourceReader struct {

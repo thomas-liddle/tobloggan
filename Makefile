@@ -9,17 +9,17 @@ clean:
 	rm -rf ./docs ./generated
 
 dev:
-	go run github.com/mdwhatcott/tobloggan/main/tobloggan \
-    	-source /Users/mike/src/github.com/mdwhatcott/tobloggan/content \
-    	-target /Users/mike/src/github.com/mdwhatcott/tobloggan/generated \
+	go run tobloggan/main/tobloggan \
+    	-source /Users/mike/src/tobloggan/content \
+    	-target /Users/mike/src/tobloggan/generated \
     	-base-url "http://localhost:8000" && \
     open "http://localhost:8000/" && \
     python3 -m http.server --directory generated
 
 publish: clean
-	go run github.com/mdwhatcott/tobloggan/main/tobloggan \
-		-source /Users/mike/src/github.com/mdwhatcott/tobloggan/content \
-		-target /Users/mike/src/github.com/mdwhatcott/tobloggan/docs \
+	go run tobloggan/main/tobloggan \
+		-source /Users/mike/src/tobloggan/content \
+		-target /Users/mike/src/tobloggan/docs \
 		-base-url "/tobloggan" && \
 	git add ./docs && \
 	git commit -m "auto-publish" && \

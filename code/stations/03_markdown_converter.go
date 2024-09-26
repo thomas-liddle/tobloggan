@@ -1,7 +1,7 @@
 package stations
 
 import (
-	"github.com/mdwhatcott/tobloggan/code/contracts"
+	"tobloggan/code/contracts"
 )
 
 type Markdown interface {
