@@ -7,6 +7,7 @@ type (
 	SourceFilePath  string
 	SourceFile      []byte
 	Article         struct {
+		Draft bool      `json:"draft"`
 		Slug  string    `json:"slug"`
 		Title string    `json:"title"`
 		Date  time.Time `json:"date"`
