@@ -8,7 +8,6 @@ const ListingTemplate = `<!doctype html>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="author" content="Your Name Here">
         <meta name="description" content="description">
-        <link rel="canonical" href="https://your-domain-here.com">
         ` + CSS + `
     </head>
 
