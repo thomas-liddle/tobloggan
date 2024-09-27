@@ -17,5 +17,11 @@ Here is a code snippet:
 Here is another code snippet:
 
 ```go
-Reduce(op.Add, 0, Take(10, Filter(is.Even, Map(op.Square, RangeOpen(0, 1)))))  // 1140
+package main
+
+import "github.com/mdwhatcott/funcy/ranger"
+
+func main() {
+    println(Reduce(op.Add, 0, Take(10, Filter(is.Even, Map(op.Square, RangeOpen(0, 1))))))  // 1140
+}
 ```

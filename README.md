@@ -36,8 +36,8 @@ Some facts about content files and their structure:
 1. All content files must end in `.md`.
 2. The first element of a content file is a JSON object with the following keys:
    - `draft` (boolean) If `true`, the article will not be published.
-   - `slug` (string) The unique URL path of the article.
+   - `slug`  (string) The unique URL path of the article.
    - `title` (string) The text to use as the `<h1>` of the article.
-   - `date` (string, RFC3339 formatted date) If future, the article will not be published.
+   - `date`  (string, RFC3339 formatted date) If future, the article will not be published.
 3. The second element of a content file is the separator `+++`.
 4. The third element of a content file is arbitrary content, formatted as markdown (which will be converted to HTML).
