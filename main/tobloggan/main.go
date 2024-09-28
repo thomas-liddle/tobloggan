@@ -18,15 +18,15 @@ func init() {
 func main() {
 	cli := parseFlags(os.Args[1:])
 	ok := integration.GenerateBlog(integration.Config{
-		Clock:            time.Now,
-		Logger:           log.Default(),
-		Markdown:         markdown.NewConverter(),
-		FileSystemReader: os.DirFS(cli.sourceDirectory),
-		FileSystemWriter: FSWriter{},
-		TargetDirectory:  cli.targetDirectory,
-		ArticleTemplate:  html.ArticleTemplate,
-		ListingTemplate:  html.ListingTemplate,
-		BaseURL:          cli.baseURL,
+		Clock:             time.Now,
+		Logger:            log.Default(),
+		MarkdownConverter: markdown.NewConverter(),
+		FileSystemReader:  os.DirFS(cli.sourceDirectory),
+		FileSystemWriter:  FSWriter{},
+		TargetDirectory:   cli.targetDirectory,
+		ArticleTemplate:   html.ArticleTemplate,
+		ListingTemplate:   html.ListingTemplate,
+		BaseURL:           cli.baseURL,
 	})
 	if !ok {
 		log.Fatal("WARNING: The blog failed to generate successfully!")

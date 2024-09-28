@@ -12,15 +12,15 @@ import (
 )
 
 type Config struct {
-	Clock            contracts.Clock
-	Logger           contracts.Logger
-	Markdown         stations.Markdown
-	FileSystemReader fs.FS
-	FileSystemWriter contracts.FSWriter
-	TargetDirectory  string
-	ArticleTemplate  string
-	ListingTemplate  string
-	BaseURL          string
+	Clock             contracts.Clock
+	Logger            contracts.Logger
+	MarkdownConverter stations.Markdown
+	FileSystemReader  fs.FS
+	FileSystemWriter  contracts.FSWriter
+	TargetDirectory   string
+	ArticleTemplate   string
+	ListingTemplate   string
+	BaseURL           string
 }
 
 func GenerateBlog(config Config) bool {
@@ -36,7 +36,7 @@ func GenerateBlog(config Config) bool {
 		parser   = stations.NewArticleParser()
 		drafts   = stations.NewDraftRemoval()
 		futures  = stations.NewFutureRemoval(started)
-		markdown = stations.NewMarkdownConverter(config.Markdown)
+		markdown = stations.NewMarkdownConverter(config.MarkdownConverter)
 		listing  = stations.NewListingRenderer(config.ListingTemplate)
 		renderer = stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL  = stations.NewBaseURLRewriter(config.BaseURL)
