@@ -31,23 +31,25 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner  = stations.NewSourceScanner(config.FileSystemReader)
-		reader   = stations.NewSourceReader(config.FileSystemReader)
-		parser   = stations.NewArticleParser()
-		drafts   = stations.NewDraftRemoval()
-		futures  = stations.NewFutureRemoval(started)
-		markdown = stations.NewMarkdownConverter(config.MarkdownConverter)
-		listing  = stations.NewListingRenderer(config.ListingTemplate)
-		renderer = stations.NewArticleRenderer(config.ArticleTemplate)
-		baseURL  = stations.NewBaseURLRewriter(config.BaseURL)
-		writer   = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
-		reporter = stations.NewReporter(config.Logger, failure)
+		scanner   = stations.NewSourceScanner(config.FileSystemReader)
+		reader    = stations.NewSourceReader(config.FileSystemReader)
+		parser    = stations.NewArticleParser()
+		validator = stations.NewArticleValidator()
+		drafts    = stations.NewDraftRemoval()
+		futures   = stations.NewFutureRemoval(started)
+		markdown  = stations.NewMarkdownConverter(config.MarkdownConverter)
+		listing   = stations.NewListingRenderer(config.ListingTemplate)
+		renderer  = stations.NewArticleRenderer(config.ArticleTemplate)
+		baseURL   = stations.NewBaseURLRewriter(config.BaseURL)
+		writer    = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
+		reporter  = stations.NewReporter(config.Logger, failure)
 
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(config.Logger),
 			pipelines.Options.StationSingleton(scanner),
 			pipelines.Options.StationSingleton(reader), pipelines.Options.FanOut(5),
 			pipelines.Options.StationSingleton(parser),
+			pipelines.Options.StationSingleton(validator),
 			pipelines.Options.StationSingleton(drafts),
 			pipelines.Options.StationSingleton(futures),
 			pipelines.Options.StationSingleton(markdown),
