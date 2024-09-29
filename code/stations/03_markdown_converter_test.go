@@ -37,6 +37,6 @@ func (this *MarkdownConverterFixture) TestInvalidMarkdown() {
 	this.markdownErr = boink
 	this.do(contracts.Article{Body: article1Content})
 	if this.So(this.outputs, should.HaveLength, 1) {
-		this.So(this.outputs[0], should.Wrap, errMalformedSource)
+		this.So(this.outputs[0], should.Wrap, errMalformedContent)
 	}
 }
