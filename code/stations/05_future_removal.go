@@ -11,9 +11,7 @@ type FutureRemoval struct {
 }
 
 func NewFutureRemoval(now time.Time) contracts.Station {
-	return &FutureRemoval{
-		now: now,
-	}
+	return &FutureRemoval{now: now}
 }
 
 func (this *FutureRemoval) Do(input any, output func(any)) {
