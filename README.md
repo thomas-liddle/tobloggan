@@ -27,7 +27,7 @@ Consider a text file called `article.md` with the following contents:
 
 ## Markdown content here
 
-This will be a paragraph with _italic_ text and *bold* text.
+This will be a paragraph with _italic_ text and **bold** text.
 
 ```
 
@@ -41,3 +41,22 @@ Some facts about content files and their structure:
    - `date`  (string, RFC3339 formatted date) If future, the article will not be published.
 3. The second element of a content file is the separator `+++`.
 4. The third element of a content file is arbitrary content, formatted as markdown (which will be converted to HTML).
+
+## Data Pipeline
+
+Here are the contractual data types (in tobloggan/code/contracts) that each 'station' (in tobloggan/code/stations) receives and then emits:
+
+```
+00_source_scanner:     SourceDirectory -> SourceFilePath (zero or more!)
+01_source_reader:      SourceFilePath -> SourceFile
+02_article_parser:     SourceFile -> Article
+03_article_validator:  Article -> Article
+04_draft_removal:      Article -> Article (or nothing)
+05_future_removal:     Article -> Article (or nothing)
+06_markdown_converter: Article -> Article (w/ Body converted to HTML)
+07_listing_renderer:   Article -> Article (buffers ALL, then emits Page at end)
+08_article_renderer:   Article -> Page
+09_base_url_rewriter:  Page -> Page (adds base-url to all hrefs)
+10_page_writer:        Page -> Page
+11_reporter:           Page -> NADA (logs/counts errors; logs each successful article)
+```
