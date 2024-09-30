@@ -33,7 +33,7 @@ func GenerateBlog(config Config) bool {
 
 		scanner   = pipelines.Station(nil) // stations.NewSourceScanner(config.FileSystemReader)
 		reader    = pipelines.Station(nil) // stations.NewSourceReader(config.FileSystemReader)
-		parser    = pipelines.Station(nil) // stations.NewArticleParser()
+		parser    = stations.NewArticleParser()
 		validator = pipelines.Station(nil) // stations.NewArticleValidator() // OPTIONAL?
 		drafts    = pipelines.Station(nil) // stations.NewDraftRemoval() // OPTIONAL
 		futures   = pipelines.Station(nil) // stations.NewFutureRemoval(started)
