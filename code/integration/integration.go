@@ -38,7 +38,7 @@ func GenerateBlog(config Config) bool {
 		drafts    = pipelines.Station(nil) // stations.NewDraftRemoval() // OPTIONAL
 		futures   = pipelines.Station(nil) // stations.NewFutureRemoval(started)
 		markdown  = pipelines.Station(nil) // stations.NewMarkdownConverter(config.MarkdownConverter)
-		listing   = stations.NewListingRenderer(config.ListingTemplate)
+		listing   = pipelines.Station(nil) // stations.NewListingRenderer(config.ListingTemplate)
 		renderer  = stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL   = stations.NewBaseURLRewriter(config.BaseURL)
 		writer    = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
