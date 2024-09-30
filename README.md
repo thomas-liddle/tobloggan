@@ -6,11 +6,6 @@ _Blogging made so easy you might as well be coasting smoothly down a snowy mount
 - Run `make dev` to generate the blog from the `/content` directory and open a web browser to view the pages in the `/generated` directory.
 - Run `make publish` to generate the blog from the `/content` directory to the `/docs` directory. Will also commit and push the blog (to kickoff a build of github pages, if configured).
 
-## Github Pages Configuration
-
-![github-pages-config](./assets/github-pages-setup.png)
-
-
 ## Content Files
 
 Consider a text file called `article.md` with the following contents:
@@ -60,3 +55,8 @@ Here are the contractual data types (in tobloggan/code/contracts) that each 'sta
 10_page_writer:        Page -> Page
 11_reporter:           Page -> NADA (logs/counts errors; logs each successful article)
 ```
+
+## Github Pages Configuration
+
+![github-pages-config](./assets/github-pages-setup.png)
+
