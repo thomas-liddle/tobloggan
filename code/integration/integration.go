@@ -36,7 +36,7 @@ func GenerateBlog(config Config) bool {
 		parser    = pipelines.Station(nil) // stations.NewArticleParser()
 		validator = pipelines.Station(nil) // stations.NewArticleValidator() // OPTIONAL?
 		drafts    = pipelines.Station(nil) // stations.NewDraftRemoval() // OPTIONAL
-		futures   = stations.NewFutureRemoval(started)
+		futures   = pipelines.Station(nil) // stations.NewFutureRemoval(started)
 		markdown  = stations.NewMarkdownConverter(config.MarkdownConverter)
 		listing   = stations.NewListingRenderer(config.ListingTemplate)
 		renderer  = stations.NewArticleRenderer(config.ArticleTemplate)
