@@ -1,10 +1,8 @@
 package stations
 
 import (
-	"os"
 	"strings"
 	"testing"
-	"testing/fstest"
 
 	"github.com/smarty/assertions/should"
 	"github.com/smarty/gunit"
@@ -13,27 +11,19 @@ import (
 	"tobloggan/code/html"
 )
 
-func TestListingWriterFixture(t *testing.T) {
-	gunit.Run(new(ListingWriterFixture), t)
+func TestListingRendererFixture(t *testing.T) {
+	gunit.Run(new(ListingRendererFixture), t)
 }
 
-type ListingWriterFixture struct {
+type ListingRendererFixture struct {
 	StationFixture
-	fs           fstest.MapFS
-	writeFileErr error
 }
 
-func (this *ListingWriterFixture) WriteFile(filename string, data []byte, perm os.FileMode) error {
-	this.fs[filename] = &fstest.MapFile{Data: data, Mode: perm}
-	return this.writeFileErr
-}
-
-func (this *ListingWriterFixture) Setup() {
-	this.fs = make(fstest.MapFS)
+func (this *ListingRendererFixture) Setup() {
 	this.station = NewListingRenderer(html.ListingTemplate)
 }
 
-func (this *ListingWriterFixture) TestArticlesWrittenToListing() {
+func (this *ListingRendererFixture) TestArticlesWrittenToListing() {
 	article1 := contracts.Article{Slug: "s1", Title: "t1", Date: date("2024-09-01"), Body: "b1"}
 	article2 := contracts.Article{Slug: "s2", Title: "t2", Date: date("2024-09-02"), Body: "b2"}
 	article3 := contracts.Article{Slug: "s3", Title: "t3", Date: date("2024-09-03"), Body: "b3"}
