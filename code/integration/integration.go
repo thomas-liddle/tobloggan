@@ -31,17 +31,17 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner   = pipelines.Station(nil) // stations.NewSourceScanner(config.FileSystemReader)
-		reader    = pipelines.Station(nil) // stations.NewSourceReader(config.FileSystemReader)
-		parser    = pipelines.Station(nil) // stations.NewArticleParser()
-		validator = pipelines.Station(nil) // stations.NewArticleValidator() // OPTIONAL?
-		drafts    = pipelines.Station(nil) // stations.NewDraftRemoval() // OPTIONAL
-		futures   = pipelines.Station(nil) // stations.NewFutureRemoval(started)
-		markdown  = pipelines.Station(nil) // stations.NewMarkdownConverter(config.MarkdownConverter)
-		listing   = pipelines.Station(nil) // stations.NewListingRenderer(config.ListingTemplate)
-		renderer  = pipelines.Station(nil) // stations.NewArticleRenderer(config.ArticleTemplate)
+		scanner   = stations.NewSourceScanner(config.FileSystemReader)
+		reader    = stations.NewSourceReader(config.FileSystemReader)
+		parser    = stations.NewArticleParser()
+		validator = stations.NewArticleValidator()
+		drafts    = stations.NewDraftRemoval()
+		futures   = stations.NewFutureRemoval(started)
+		markdown  = stations.NewMarkdownConverter(config.MarkdownConverter)
+		listing   = stations.NewListingRenderer(config.ListingTemplate)
+		renderer  = stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL   = stations.NewBaseURLRewriter(config.BaseURL)
-		writer    = pipelines.Station(nil) // stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
+		writer    = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
 		reporter  = stations.NewReporter(config.Logger, failure)
 
 		pipeline = pipelines.New(input,
