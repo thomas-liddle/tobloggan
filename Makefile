@@ -5,6 +5,9 @@ test:
 	go mod tidy
 	go test -cover -timeout=1s -race -count=10 ./...
 
+install: test
+	go install tobloggan/main/tobloggan
+
 clean:
 	rm -rf ./docs ./generated
 
@@ -25,4 +28,5 @@ publish: clean
 	git commit -m "auto-publish" && \
 	git push origin master
 
-.PHONY: test clean dev publish
+
+.PHONY: test install clean dev publish
