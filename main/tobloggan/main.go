@@ -10,16 +10,12 @@ import (
 	"tobloggan/code/markdown"
 )
 
-func init() {
-	log.SetFlags(0)
-	log.SetPrefix(">>> ")
-}
-
 func main() {
+	logger := log.New(os.Stderr, ">>> ", 0)
 	cli := parseFlags(os.Args[1:])
 	ok := integration.GenerateBlog(integration.Config{
 		Clock:             time.Now,
-		Logger:            log.Default(),
+		Logger:            logger,
 		MarkdownConverter: markdown.NewConverter(),
 		FileSystemReader:  os.DirFS(cli.sourceDirectory),
 		FileSystemWriter:  FSWriter{},
@@ -29,6 +25,6 @@ func main() {
 		BaseURL:           cli.baseURL,
 	})
 	if !ok {
-		log.Fatal("WARNING: The blog failed to generate successfully!")
+		logger.Fatal("WARNING: The blog failed to generate successfully!")
 	}
 }

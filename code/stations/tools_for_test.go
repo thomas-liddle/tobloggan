@@ -20,7 +20,7 @@ type StationFixture struct {
 
 func (this *StationFixture) TestUnhandledTypeEmitted() {
 	this.do("wrong-type")
-	this.So(this.outputs, should.Equal, []any{"wrong-type"})
+	this.assertOutputs("wrong-type")
 }
 func (this *StationFixture) do(input any) {
 	this.station.Do(input, this.output)

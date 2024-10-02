@@ -17,8 +17,10 @@ func TestSourceScannerFixture(t *testing.T) {
 }
 
 type SourceScannerFixture struct {
-	StationFixture
-	fs fstest.MapFS
+	*gunit.Fixture
+	station contracts.Station
+	outputs []any
+	fs      fstest.MapFS
 }
 
 func (this *SourceScannerFixture) Setup() {
@@ -32,16 +34,26 @@ func (this *SourceScannerFixture) Setup() {
 	this.fs["src/dir.md"] = &fstest.MapFile{Mode: fs.ModeDir} // a directory that looks like a markdown file
 	this.station = NewSourceScanner(this.fs)
 }
+func (this *SourceScannerFixture) output(v any) {
+	this.outputs = append(this.outputs, v)
+}
+func (this *SourceScannerFixture) assertOutputs(expected ...any) {
+	this.So(this.outputs, should.Equal, expected)
+}
 
+func (this *SourceScannerFixture) TestUnhandledTypeEmitted() {
+	this.station.Do("wrong-type", this.output)
+	this.So(this.outputs, should.Equal, []any{"wrong-type"})
+}
 func (this *SourceScannerFixture) TestGivenASourceDirectoryThatDoesNotExist_EmitError() {
 	clear(this.fs)
-	this.do(contracts.SourceDirectory("NOT-THERE"))
+	this.station.Do(contracts.SourceDirectory("NOT-THERE"), this.output)
 	if this.So(this.outputs, should.HaveLength, 1) {
 		this.So(this.outputs[0], should.Wrap, os.ErrNotExist)
 	}
 }
 func (this *SourceScannerFixture) TestGivenASourceDirectoryWithBlogSourceFiles_EmitAllBlogSourceFilePaths() {
-	this.do(contracts.SourceDirectory("src"))
+	this.station.Do(contracts.SourceDirectory("src"), this.output)
 	this.assertOutputs(
 		contracts.SourceFilePath("src/article-1.md"),
 		contracts.SourceFilePath("src/article-3.md"),
