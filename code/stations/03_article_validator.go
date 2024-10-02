@@ -8,10 +8,12 @@ import (
 	"tobloggan/code/set"
 )
 
-type ArticleValidator struct{}
+type ArticleValidator struct {
+	unique set.Set[string]
+}
 
 func NewArticleValidator() contracts.Station {
-	return &ArticleValidator{}
+	return &ArticleValidator{unique: set.New[string]()}
 }
 
 func (this *ArticleValidator) Do(input any, output func(any)) {
@@ -21,7 +23,10 @@ func (this *ArticleValidator) Do(input any, output func(any)) {
 			output(contracts.Errorf("%w (slug): [%s]", errInvalidContent, input.Slug))
 		} else if !this.isValidTitle(input.Title) {
 			output(contracts.Errorf("%w (title): [%s]", errInvalidContent, input.Title))
+		} else if this.unique.Contains(input.Slug) {
+			output(contracts.Errorf("%w: %s", errDuplicateSlug, input.Slug))
 		} else {
+			this.unique.Add(input.Slug)
 			output(input)
 		}
 	default:
@@ -55,6 +60,9 @@ func (this *ArticleValidator) isValidTitle(title string) bool {
 	return true
 }
 
-var errInvalidContent = errors.New("invalid content")
+var (
+	errInvalidContent = errors.New("invalid content")
+	errDuplicateSlug  = errors.New("duplicate slug")
+)
 
 var validSlugCharacters = set.New([]rune("abcdefghijklmnopqrstuvwxyz0123456789-/")...)

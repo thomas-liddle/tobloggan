@@ -67,3 +67,12 @@ func (this *ArticleValidatorFixture) TestInvalidTitles() {
 	this.assertInvalidTitle("")                       // empty
 	this.assertInvalidTitle(strings.Repeat("a", 257)) // too long
 }
+func (this *ArticleValidatorFixture) TestSlugsMustBeUnique() {
+	input := this.validArticle()
+	this.do(input)
+	this.do(input)
+	if this.So(this.outputs, should.HaveLength, 2) {
+		this.So(this.outputs[0], should.Equal, input)
+		this.So(this.outputs[1], should.Wrap, errDuplicateSlug)
+	}
+}
