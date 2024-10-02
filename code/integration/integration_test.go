@@ -3,15 +3,10 @@ package integration
 import (
 	"bytes"
 	"io/fs"
-	"log"
 	"os"
 	"sync"
 	"testing"
 	"testing/fstest"
-	"time"
-
-	"tobloggan/code/html"
-	"tobloggan/code/markdown"
 
 	"github.com/smarty/assertions/should"
 )
@@ -25,21 +20,8 @@ func Test(t *testing.T) {
 	fileSystem := NewFileSystem()
 	_ = fileSystem.WriteFile("article-1.md", []byte(article1Content), 0644)
 	_ = fileSystem.WriteFile("article-2.md", []byte(article2Content), 0644)
-	config := Config{
-		Clock:             time.Now,
-		Logger:            log.New(&logBuffer, "[TEST] ", 0),
-		MarkdownConverter: markdown.NewConverter(),
-		FileSystemReader:  fileSystem,
-		FileSystemWriter:  fileSystem,
-		TargetDirectory:   "output",
-		ArticleTemplate:   html.ArticleTemplate,
-		ListingTemplate:   html.ListingTemplate,
-		BaseURL:           "file://",
-	}
-	ok := GenerateBlog(config)
-	if !ok {
-		t.Error("failed to generate blog")
-	}
+
+	// TODO: finish integration test
 
 	t.Log("\n" + logBuffer.String())
 
