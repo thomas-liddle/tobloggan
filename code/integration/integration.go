@@ -31,7 +31,7 @@ func GenerateBlog(config Config) bool {
 		failure = new(atomic.Bool)
 		input   = make(chan any, 1)
 
-		scanner   = pipelines.Station(nil) // stations.NewSourceScanner(config.FileSystemReader)
+		scanner   = stations.NewSourceScanner(config.FileSystemReader)
 		reader    = stations.NewSourceReader(config.FileSystemReader)
 		parser    = stations.NewArticleParser()
 		validator = stations.NewArticleValidator()
