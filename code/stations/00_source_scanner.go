@@ -38,5 +38,5 @@ func (this *SourceScanner) Do(input any, output func(any)) {
 }
 
 func endsWith(s, expectedEnding string) bool {
-	return s[len(s)-len(expectedEnding):] == expectedEnding
+	return len(s) >= len(expectedEnding) && s[len(s)-len(expectedEnding):] == expectedEnding
 }

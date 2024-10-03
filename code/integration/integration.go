@@ -41,10 +41,10 @@ func GenerateBlog(config Config) bool {
 		futures   = stations.NewFutureRemoval(started) // OPTIONAL
 		markdown  = stations.NewMarkdownConverterStation(config.MarkdownConverter)
 		listing   = stations.NewListingRenderer(config.ListingTemplate)
-		renderer  = contracts.Station(nil) // stations.NewArticleRenderer(config.ArticleTemplate)
-		baseURL   = contracts.Station(nil) // stations.NewBaseURLRewriter(config.BaseURL)
-		writer    = contracts.Station(nil) // stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
-		reporter  = contracts.Station(nil) // stations.NewReporter(config.Logger, failure)
+		renderer  = stations.NewArticleRenderer(config.ArticleTemplate)
+		baseURL   = stations.NewBaseURLRewriter(config.BaseURL)
+		writer    = stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)
+		reporter  = stations.NewReporter(config.Logger, failure)
 
 		pipeline = pipelines.New(input,
 			pipelines.Options.Logger(config.Logger),

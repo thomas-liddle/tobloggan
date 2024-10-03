@@ -21,9 +21,8 @@ func (this *ListingRenderer) Do(input any, output func(any)) {
 	switch input := input.(type) {
 	case contracts.Article:
 		this.articles = append(this.articles, input)
-	default:
-		output(input)
 	}
+	output(input)
 }
 func (this *ListingRenderer) Finalize(output func(any)) {
 	sort.SliceStable(this.articles, func(i, j int) bool {
