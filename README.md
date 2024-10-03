@@ -2,6 +2,8 @@
 
 _Blogging made so easy you might as well be coasting smoothly down a snowy mountain track without a care in the world._
 
+## Makefile targets
+
 - Run `make test` to execute tests.
 - Run `make dev` to generate the blog from the `/content` directory and open a web browser to view the pages in the `/generated` directory.
 - Run `make publish` to generate the blog from the `/content` directory to the `/docs` directory. Will also commit and push the blog (to kickoff a build of github pages, if configured).
