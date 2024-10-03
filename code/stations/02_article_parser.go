@@ -18,7 +18,7 @@ type ArticleParser struct {
 //    input: contracts.Article
 //}
 
-func newArticleParser() *ArticleParser {
+func NewArticleParser() *ArticleParser {
 	return &ArticleParser{}
 }
 
@@ -43,10 +43,6 @@ func (this *ArticleParser) Do(input any, output func(any)) {
 	default:
 		output(input)
 	}
-}
-
-func findSeparatorIdx(b []byte) int {
-	return bytes.Index(b, separator)
 }
 
 var errMalformedContent = errors.New("malformed content")

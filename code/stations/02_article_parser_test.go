@@ -26,7 +26,7 @@ type ArticleParserFixture struct {
 }
 
 func (this *ArticleParserFixture) Setup() {
-	this.station = newArticleParser()
+	this.station = NewArticleParser()
 }
 
 func (this *ArticleParserFixture) TestArticleMetaAndContentReadFromDiskAndEmitted() {

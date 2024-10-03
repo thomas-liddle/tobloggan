@@ -33,14 +33,14 @@ func GenerateBlog(config Config) bool {
 
 		//TODO: replace these
 
-		scanner   = contracts.Station(nil) // stations.NewSourceScanner(config.FileSystemReader)
-		reader    = contracts.Station(nil) // stations.NewSourceReader(config.FileSystemReader)
-		parser    = contracts.Station(nil) // stations.NewArticleParser()
-		validator = contracts.Station(nil) // stations.NewArticleValidator()
-		drafts    = contracts.Station(nil) // stations.NewDraftRemoval()         // OPTIONAL
-		futures   = contracts.Station(nil) // stations.NewFutureRemoval(started) // OPTIONAL
-		markdown  = contracts.Station(nil) // stations.NewMarkdownConverter(config.MarkdownConverter)
-		listing   = contracts.Station(nil) // stations.NewListingRenderer(config.ListingTemplate)
+		scanner   = stations.NewSourceScanner(config.FileSystemReader)
+		reader    = stations.NewSourceReader(config.FileSystemReader)
+		parser    = stations.NewArticleParser()
+		validator = stations.NewArticleValidator()
+		drafts    = stations.NewDraftRemoval()         // OPTIONAL
+		futures   = stations.NewFutureRemoval(started) // OPTIONAL
+		markdown  = stations.NewMarkdownConverterStation(config.MarkdownConverter)
+		listing   = stations.NewListingRenderer(config.ListingTemplate)
 		renderer  = contracts.Station(nil) // stations.NewArticleRenderer(config.ArticleTemplate)
 		baseURL   = contracts.Station(nil) // stations.NewBaseURLRewriter(config.BaseURL)
 		writer    = contracts.Station(nil) // stations.NewPageWriter(config.TargetDirectory, config.FileSystemWriter)

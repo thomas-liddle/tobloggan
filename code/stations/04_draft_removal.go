@@ -1,7 +1,23 @@
 package stations
 
-//type DraftRemoval struct{}
+import (
+	"tobloggan/code/contracts"
+)
 
-//func (this *DraftRemoval) Do(input any, output func(any)) {
-//    TODO: given a contracts.Article, only output it if !input.Draft.
-//}
+type DraftRemoval struct{}
+
+func NewDraftRemoval() DraftRemoval {
+	return DraftRemoval{}
+}
+
+func (this DraftRemoval) Do(input any, output func(any)) {
+	switch input := input.(type) {
+	case contracts.Article:
+		if input.Draft {
+			return
+		}
+		output(input)
+	default:
+		output(input)
+	}
+}
